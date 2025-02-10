@@ -20,9 +20,7 @@ const MainLayout: ParentComponent = (props) => {
                   {props.children}
                 </div>
                 <div class="flex-it md:w-92 w-0 mt-4">
-                  {/* TRENDS SIDEBAR START */}
                   <TrendsSidebar />
-                  {/* TRENDS SIDEBAR END */}
                 </div>
               </div>
             </div>
