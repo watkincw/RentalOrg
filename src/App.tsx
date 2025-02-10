@@ -1,14 +1,10 @@
-import { Component } from "solid-js";
-// screens
-import HomeScreen from "./screens/Home";
-import LoginScreen from "./screens/Login";
-import RegisterScreen from "./screens/Register";
+import { Component, ParentProps } from "solid-js";
 
-const App: Component = () => {
+const App: Component<ParentProps> = (props) => {
   return (
-    <HomeScreen />
-    // <LoginScreen />
-    // <RegisterScreen />
+    <>
+      {props.children}
+    </>
   )
 };
 
