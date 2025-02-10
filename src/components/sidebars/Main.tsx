@@ -3,6 +3,7 @@ import { A } from "@solidjs/router";
 import { FiMoreHorizontal } from "solid-icons/fi";
 // components/sidebars
 import { links } from "./links";
+import Popup from "../utils/Popup";
 
 const MainSidebar: Component = () => {
   return (
@@ -22,12 +23,15 @@ const MainSidebar: Component = () => {
                     {(link) => (
                       <A
                         class="flex-it items-start flex-grow w-full"
-                        href={link.href}
-                      >
+                        href={link.href}>
                         <div class="p-3 flex-row justify-center items-center flex-it rounded-3xl hover:bg-gray-800 hover:rounded-3xl transition duration-200">
-                          <div class="flex-it">{link.icon()}</div>
+                          <div class="flex-it">
+                            {link.icon()}
+                          </div>
                           <div class="mx-4 text-2xl truncate xl:block hidden">
-                            <span class="truncate">{link.name}</span>
+                            <span class="truncate">
+                              {link.name}
+                            </span>
                           </div>
                         </div>
                       </A>
@@ -45,24 +49,29 @@ const MainSidebar: Component = () => {
               </div>
             </div>
             {/* PROFILE MENU */}
-            <div class="flex-it my-3 hover:cursor-pointer">
+            <div class="flex-it hover:cursor-pointer">
               {/* POPUP START*/}
-              <div class="flex-it items-center flex-row p-3 rounded-3xl hover:bg-gray-800 hover:rounded-3xl transition duration-200 cursor-pointer">
-                <div class="flex-it">
-                  <div class="w-10 h-10 overflow-visible">
-                    <img
-                      class="rounded-full"
-                      src="https://www.pinclipart.com/picdir/middle/133-1331433_free-user-avatar-icons-happy-flat-design-png.png"
-                    ></img>
+              <Popup
+                opener={() => (
+                  <div class="my-3 flex-it items-center flex-row p-3 rounded-3xl hover:bg-gray-800 hover:rounded-3xl transition duration-200 cursor-pointer">
+                    <div class="flex-it">
+                      <div class="w-10 h-10 overflow-visible">
+                        <img
+                          class="rounded-full"
+                          src="https://www.pinclipart.com/picdir/middle/133-1331433_free-user-avatar-icons-happy-flat-design-png.png"></img>
+                      </div>
+                    </div>
+                    <div class="flex-it xl:flex hidden flex-grow flex-row justify-between items-center">
+                      <div class="flex-it mx-3 font-bold">
+                        Filip99
+                      </div>
+                      <div class="flex-it">
+                        <FiMoreHorizontal />
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div class="flex-it xl:flex hidden flex-grow flex-row justify-between items-center">
-                  <div class="flex-it mx-3 font-bold">Filip99</div>
-                  <div class="flex-it">
-                    <FiMoreHorizontal />
-                  </div>
-                </div>
-              </div>
+                )}
+              />
               {/* POPUP END */}
             </div>
           </div>
