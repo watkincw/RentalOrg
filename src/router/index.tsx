@@ -1,43 +1,39 @@
 import { Component, lazy, ParentComponent } from "solid-js";
 import { Route } from "@solidjs/router";
-// // context
-// import AuthProvider from "../context/auth";
+// router/layouts
+import MainLayout from "./layouts/MainLayout";
+import AuthLayout from "./layouts/AuthLayout";
 // screens
 import HomeScreen from "../screens/Home";
 // (lazy) screens
 const LoginScreen = lazy(() => import("../screens/Login"));
 const RegisterScreen = lazy(() => import("../screens/Register"));
 
-// const ScreenExt: ParentComponent = (props) => {
-//   return <AuthProvider>{props.children}</AuthProvider>;
-// };
-
-// const withScreenExt = (Component: Component) => {
-//   return (props: any) => (
-//     <ScreenExt>
-//       <Component {...props} />
-//     </ScreenExt>
-//   );
-// };
-
 const AppRoutes = () => {
   return (
     <>
       <Route
         path="/"
-        component={HomeScreen}
-        // component={withScreenExt(HomeScreen)}
-      />
+        component={MainLayout}
+      >
+        <Route
+          path="/"
+          component={HomeScreen}
+        />
+      </Route>
       <Route
-        path="/login"
-        component={LoginScreen}
-        // component={withScreenExt(LoginScreen)}
-      />
-      <Route
-        path="/register"
-        component={RegisterScreen}
-        // component={withScreenExt(RegisterScreen)}
-      />
+        path="/auth"
+        component={AuthLayout}
+      >
+        <Route
+          path="/login"
+          component={LoginScreen}
+        />
+        <Route
+          path="/register"
+          component={RegisterScreen}
+        />
+      </Route>
     </>
   );
 };
