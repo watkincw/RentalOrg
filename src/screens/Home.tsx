@@ -3,6 +3,7 @@ import {
   createSignal,
   createUniqueId,
   For,
+  onMount,
 } from "solid-js";
 import { FaRegularImage } from "solid-icons/fa";
 // components
@@ -15,7 +16,7 @@ const HomeScreen: Component = () => {
   const [content, setContent] = createSignal("");
   const [glides, setGlides] = createSignal<Glide[]>([]);
 
-  const createGlide = () => {
+  function createGlide() {
     const glide = {
       id: createUniqueId(),
       content: content(),
@@ -31,7 +32,7 @@ const HomeScreen: Component = () => {
 
     setGlides([glide, ...glides()]);
     setContent("");
-  };
+  }
 
   return (
     <MainLayout>
@@ -87,9 +88,7 @@ const HomeScreen: Component = () => {
         {/* MESSENGER END */}
       </div>
       <div class="h-px bg-gray-700 my-1" />
-      <For each={glides()}>
-        {(glide) => <GlidePost glide={glide} />}
-      </For>
+      <For each={glides()}>{(glide) => <GlidePost glide={glide} />}</For>
       {/* HOME PAGE END */}
     </MainLayout>
   );

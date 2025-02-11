@@ -13,12 +13,12 @@ export const links = [
   },
   {
     name: "Login",
-    href: "/login",
+    href: "/auth/login",
     icon: () => <CgProfile size={SIZE} />,
   },
   {
     name: "Register",
-    href: "/register",
+    href: "/auth/register",
     icon: () => <CgProfile size={SIZE} />,
   },
   {

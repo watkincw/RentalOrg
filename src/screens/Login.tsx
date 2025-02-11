@@ -4,9 +4,7 @@ import { A } from "@solidjs/router";
 const LoginScreen: Component = () => {
   return (
     <div class="flex-it justify-center items-center h-full">
-      <div class="text-white text-4xl font-bold">
-        Glider - Get In
-      </div>
+      <div class="text-white text-4xl font-bold">Glider - Get In</div>
       <div class="mt-10 flex-it h-100 xs:w-100 w-full bg-white p-10 rounded-2xl">
         <div class="flex-it">
           <form class="flex-it">
@@ -44,7 +42,7 @@ const LoginScreen: Component = () => {
                 No Account Yet?{" "}
                 <A
                   class="underline"
-                  href="/login">
+                  href="/auth/login">
                   Create a new account
                 </A>
               </div>
