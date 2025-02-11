@@ -15,8 +15,8 @@ type Props = {
 const Popup: Component<Props> = ({ opener: Opener }) => {
   const [isOpen, setIsOpen] = createSignal();
 
-  let followTo: HTMLDivElement;
-  let popup: HTMLDivElement;
+  let followTo: HTMLDivElement | undefined;
+  let popup: HTMLDivElement | undefined;
 
   onMount(() => {
     window.addEventListener("resize", adjustPopup);
@@ -35,10 +35,10 @@ const Popup: Component<Props> = ({ opener: Opener }) => {
   });
 
   const adjustPopup = () => {
-    if (!!popup!) {
-      const position = followTo!.getBoundingClientRect();
+    if (!!popup && !!followTo) {
+      const position = followTo.getBoundingClientRect();
       popup.style.left = position.left + "px";
-      popup.style.bottom = followTo!.clientHeight + "px";
+      popup.style.bottom = followTo.clientHeight + "px";
     }
   };
 
@@ -49,13 +49,13 @@ const Popup: Component<Props> = ({ opener: Opener }) => {
   };
 
   const isPopupClicked = (e: MouseEvent) => {
-    return popup!?.contains(e.target as Node);
+    return popup?.contains(e.target as Node);
   };
 
   return (
     <div class="flex-it flex-grow">
       <div
-        ref={followTo!}
+        ref={followTo}
         onClick={(e) => {
           e.stopImmediatePropagation();
           setIsOpen(!isOpen());
@@ -66,7 +66,7 @@ const Popup: Component<Props> = ({ opener: Opener }) => {
         <Portal
           mount={document.getElementById("popups") as Node}>
           <div
-            ref={popup!}
+            ref={popup}
             class="flex-it hover:cursor-pointer fixed bg-gray-800 text-white popup z-10 rounded-2xl border-gray-700 border transition duration-1000">
             <div class="w-72 min-w-68 max-h-120 min-h-8 flex-it overflow-auto">
               <div class="flex-it flex-grow flex-shrink py-3">
