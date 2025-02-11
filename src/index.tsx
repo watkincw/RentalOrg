@@ -1,14 +1,19 @@
 import { render } from "solid-js/web";
 import { Router } from "@solidjs/router";
-import AppRoutes from "./router";
 import App from "./App";
-
 import "./index.css";
+// router
+import AppRoutes from "./router";
+// context
+import AuthProvider from "./context/auth";
 
 render(
-  () =>
-    <Router root={App}>
-      <AppRoutes />
-    </Router>,
-    document.getElementById("root")!
+  () => (
+    <AuthProvider>
+      <Router root={App}>
+        <AppRoutes />
+      </Router>
+    </AuthProvider>
+  ),
+  document.getElementById("root")!
 );
