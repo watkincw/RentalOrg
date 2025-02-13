@@ -13,7 +13,7 @@ export type AuthForm = {
 
 export type RegisterForm = {
   fullName: string;
-  nickName: string;
+  userName: string;
   email: string;
   avatar: string;
   password: string;
