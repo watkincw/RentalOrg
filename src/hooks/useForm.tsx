@@ -1,4 +1,4 @@
-import { Accessor, Component } from "solid-js";
+import { Accessor, Component, For } from "solid-js";
 import { createStore, produce } from "solid-js/store";
 // types
 import { Form, FormErrors, GliderInputEvent, SubmitCallback } from "../types/Form";
@@ -13,12 +13,12 @@ declare module "solid-js" {
 
 type Validator = (element: HTMLInputElement, ...rest: any[]) => string;
 
-type ErrorProps = { message: string };
+type ErrorProps = { messages: string[] };
 
 export const FormError: Component<ErrorProps> = (props) => {
   return (
     <div class="flex-it grow text-xs bg-red-400 text-white p-3 pl-3 mt-1 rounded-md">
-      {props.message}
+      <For each={props.messages}>{(message) => <div>{message}</div>}</For>
     </div>
   );
 };
@@ -86,6 +86,7 @@ const useForm = <T extends Form>(initialForm: T) => {
     handleInput,
     submitForm,
     validate,
+    errors,
   };
 };
 

@@ -1,12 +1,12 @@
 import { A } from "@solidjs/router";
-import { Component } from "solid-js";
+import { Component, Show } from "solid-js";
 // hooks
 import useForm, { firstLetterUppercase, FormError, maxLengthValidator } from "../hooks/useForm";
 // types
 import { RegisterForm } from "../types/Form";
 
 const RegisterScreen: Component = () => {
-  const { handleInput, submitForm, validate } = useForm<RegisterForm>({
+  const { handleInput, submitForm, validate, errors } = useForm<RegisterForm>({
     fullName: "",
     nickName: "",
     email: "",
@@ -39,7 +39,9 @@ const RegisterScreen: Component = () => {
                       id="fullName"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
-                    <FormError message="Just Testing" />
+                    <Show when={errors["fullName"]?.length > 0}>
+                      <FormError messages={errors["fullName"]} />
+                    </Show>
                   </div>
 
                   <div class="flex-it py-2">
@@ -52,6 +54,9 @@ const RegisterScreen: Component = () => {
                       id="nickName"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
+                    <Show when={errors["nickName"]?.length > 0}>
+                      <FormError messages={errors["nickName"]} />
+                    </Show>
                   </div>
 
                   <div class="flex-it py-2">
