@@ -24,12 +24,24 @@ export const FormError: ParentComponent = (props) => {
   );
 };
 
+export const minLengthValidator: Validator = (element: HTMLInputElement, minLength = 6) => {
+  if (element.value.length === 0 || element.value.length > minLength) {
+    return "";
+  }
+
+  return `${element.name} must be at least ${minLength + 1} charascters`;
+};
+
 export const maxLengthValidator: Validator = (element: HTMLInputElement, maxLength = 17) => {
   if (element.value.length === 0 || element.value.length < maxLength) {
     return "";
   }
 
-  return `${element.name} should be less than ${maxLength} charascters`;
+  return `${element.name} must be ${maxLength - 1} charascters or elss`;
+};
+
+export const requiredValidator: Validator = (element: HTMLInputElement) => {
+  return element.value.length === 0 ? `${element.name} is required` : "";
 };
 
 export const firstLetterUppercase = (element: HTMLInputElement) => {

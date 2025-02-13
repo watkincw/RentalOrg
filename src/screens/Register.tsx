@@ -1,7 +1,13 @@
 import { A } from "@solidjs/router";
 import { Component, Show } from "solid-js";
 // hooks
-import useForm, { firstLetterUppercase, FormError, maxLengthValidator } from "../hooks/useForm";
+import useForm, {
+  firstLetterUppercase,
+  FormError,
+  maxLengthValidator,
+  minLengthValidator,
+  requiredValidator,
+} from "../hooks/useForm";
 // types
 import { RegisterForm } from "../types/Form";
 
@@ -33,7 +39,7 @@ const RegisterScreen: Component = () => {
                     <label class="block text-sm font-medium text-gray-700">Full Name</label>
                     <input
                       onInput={handleInput}
-                      use:validate={[maxLengthValidator, firstLetterUppercase]}
+                      use:validate={[requiredValidator, firstLetterUppercase]}
                       type="text"
                       name="fullName"
                       id="fullName"
@@ -46,7 +52,11 @@ const RegisterScreen: Component = () => {
                     <label class="block text-sm font-medium text-gray-700">Nick Name</label>
                     <input
                       onInput={handleInput}
-                      use:validate={[maxLengthValidator]}
+                      use:validate={[
+                        requiredValidator,
+                        maxLengthValidator,
+                        (element) => minLengthValidator(element, 4),
+                      ]}
                       type="text"
                       name="nickName"
                       id="nickName"
@@ -59,15 +69,17 @@ const RegisterScreen: Component = () => {
                     <label class="block text-sm font-medium text-gray-700">Email</label>
                     <input
                       onInput={handleInput}
+                      use:validate={[requiredValidator]}
                       type="text"
                       name="email"
                       id="email"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
+                    <FormError>{errors["email"]}</FormError>
                   </div>
 
                   <div class="flex-it py-2">
-                    <label class="block text-sm font-medium text-gray-700">Avatar</label>
+                    <label class="block text-sm font-medium text-gray-700">Profile Picture: (optional)</label>
                     <input
                       onInput={handleInput}
                       type="text"
@@ -81,11 +93,13 @@ const RegisterScreen: Component = () => {
                     <label class="block text-sm font-medium text-gray-700">Password</label>
                     <input
                       onInput={handleInput}
+                      use:validate={[requiredValidator, (ele) => minLengthValidator(ele, 5)]}
                       type="password"
                       name="password"
                       id="password"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
+                    <FormError>{errors["password"]}</FormError>
                   </div>
 
                   <div class="flex-it py-2">
@@ -94,11 +108,13 @@ const RegisterScreen: Component = () => {
                     </label>
                     <input
                       onInput={handleInput}
+                      use:validate={[requiredValidator]}
                       type="password"
                       name="passwordConfirmation"
                       id="passwordConfirmation"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
+                    <FormError>{errors["passwordConfirmation"]}</FormError>
                   </div>
                 </div>
               </div>
