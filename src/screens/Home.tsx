@@ -1,10 +1,5 @@
-import {
-  Component,
-  createSignal,
-  createUniqueId,
-  For,
-  onMount,
-} from "solid-js";
+import { Component, createSignal, createUniqueId, For } from "solid-js";
+import { createStore, produce } from "solid-js/store";
 import { FaRegularImage } from "solid-icons/fa";
 // components
 import MainLayout from "../components/layouts/Main";
@@ -14,7 +9,9 @@ import { Glide } from "../types/Glide";
 
 const HomeScreen: Component = () => {
   const [content, setContent] = createSignal("");
-  const [glides, setGlides] = createSignal<Glide[]>([]);
+  const [glides, setGlides] = createStore({
+    items: [] as Glide[],
+  });
 
   function createGlide() {
     const glide = {
@@ -30,7 +27,19 @@ const HomeScreen: Component = () => {
       date: new Date(),
     };
 
-    setGlides([glide, ...glides()]);
+    setGlides(
+      "items",
+      produce((items) => {
+        items.unshift(glide);
+      })
+    );
+
+    // setGlides(
+    //   produce((glides) => {
+    //     glides.items.unshift(glide);
+    //   })
+    // );
+
     setContent("");
   }
 
@@ -88,7 +97,7 @@ const HomeScreen: Component = () => {
         {/* MESSENGER END */}
       </div>
       <div class="h-px bg-gray-700 my-1" />
-      <For each={glides()}>{(glide) => <GlidePost glide={glide} />}</For>
+      <For each={glides.items}>{(glide) => <GlidePost glide={glide} />}</For>
       {/* HOME PAGE END */}
     </MainLayout>
   );
