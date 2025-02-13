@@ -12,6 +12,7 @@ declare module "solid-js" {
 }
 
 type Validator = (element: HTMLInputElement, ...rest: any[]) => string;
+type ValidatorConfig = { element: HTMLInputElement; validators: Validator[] };
 
 const niceName = (text: string) => {
   const words = text.split(/(?=[A-Z])/);
@@ -70,6 +71,8 @@ const useForm = <T extends Form>(initialForm: T) => {
   const [form, setForm] = createStore(initialForm);
   const [errors, setErrors] = createStore<FormErrors>();
 
+  const validatorFields: { [key: string]: ValidatorConfig } = {};
+
   const handleInput = (e: GliderInputEvent) => {
     const { name, value } = e.currentTarget;
 
@@ -83,27 +86,32 @@ const useForm = <T extends Form>(initialForm: T) => {
 
   const validate = (ref: HTMLInputElement, accessor: Accessor<Validator[]>) => {
     const validators = accessor() || [];
+    let config: ValidatorConfig;
 
-    ref.onblur = checkValidity(ref, validators);
+    validatorFields[ref.name] = config = { element: ref, validators };
+
+    ref.onblur = checkValidity(config);
   };
 
-  const checkValidity = (element: HTMLInputElement, validators: Validator[]) => () => {
-    setErrors(element.name, []);
+  const checkValidity =
+    ({ element, validators }: ValidatorConfig) =>
+    () => {
+      setErrors(element.name, []);
 
-    for (const validator of validators) {
-      const message = validator(element);
+      for (const validator of validators) {
+        const message = validator(element);
 
-      if (!!message) {
-        setErrors(
-          produce((errors) => {
-            errors[element.name].push(message);
-          })
-        );
+        if (!!message) {
+          setErrors(
+            produce((errors) => {
+              errors[element.name].push(message);
+            })
+          );
+        }
       }
-    }
 
-    console.log(JSON.stringify(errors));
-  };
+      console.log(JSON.stringify(errors));
+    };
 
   return {
     handleInput,
