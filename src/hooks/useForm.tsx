@@ -11,7 +11,7 @@ declare module "solid-js" {
   }
 }
 
-type Validator = (element: HTMLInputElement, ...rest: any[]) => string;
+type Validator = (element: HTMLInputElement, ...rest: any[]) => (form: Form) => string;
 type ValidatorConfig = { element: HTMLInputElement; validators: Validator[] };
 
 const niceName = (text: string) => {
@@ -35,36 +35,39 @@ export const FormError: ParentComponent = (props) => {
   );
 };
 
-export const minLengthValidator: Validator = (element: HTMLInputElement, minLength = 6) => {
-  if (element.value.length === 0 || element.value.length > minLength) {
-    return "";
-  }
-
-  return `${niceName(element.name)} must be at least ${minLength + 1} charascters`;
-};
-
-export const maxLengthValidator: Validator = (element: HTMLInputElement, maxLength = 17) => {
-  if (element.value.length === 0 || element.value.length < maxLength) {
-    return "";
-  }
-
-  return `${niceName(element.name)} must be ${maxLength - 1} charascters or elss`;
-};
-
-export const requiredValidator: Validator = (element: HTMLInputElement) => {
+export const requiredValidator: Validator = (element: HTMLInputElement) => (form: Form) => {
   return element.value.length === 0 ? `${niceName(element.name)} is required` : "";
 };
 
-export const firstLetterUppercase = (element: HTMLInputElement) => {
+export const minLengthValidator: Validator =
+  (element: HTMLInputElement, minLength = 6) =>
+  (form: Form) => {
+    if (element.value.length === 0 || element.value.length > minLength) {
+      return "";
+    }
+
+    return `${niceName(element.name)} must be at least ${minLength + 1} charascters`;
+  };
+
+export const maxLengthValidator: Validator =
+  (element: HTMLInputElement, maxLength = 17) =>
+  (form: Form) => {
+    if (element.value.length === 0 || element.value.length < maxLength) {
+      return "";
+    }
+
+    return `${niceName(element.name)} must be ${maxLength - 1} charascters or elss`;
+  };
+
+export const firstLetterUppercase = (element: HTMLInputElement) =>
+  (form: Form) => {
   const { value } = element;
 
   if (value.length === 0) {
     return "";
   }
 
-  return value[0] !== value[0].toUpperCase()
-    ? `${niceName(element.name)} first letter should be uppercased`
-    : "";
+  return value[0] !== value[0].toUpperCase() ? `${niceName(element.name)} first letter should be uppercased` : "";
 };
 
 const useForm = <T extends Form>(initialForm: T) => {
@@ -123,7 +126,7 @@ const useForm = <T extends Form>(initialForm: T) => {
       setErrors(element.name, []);
 
       for (const validator of validators) {
-        const message = validator(element);
+        const message = validator(element)(form);
 
         if (!!message) {
           setErrors(
