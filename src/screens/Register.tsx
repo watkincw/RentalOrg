@@ -1,9 +1,17 @@
 import { A } from "@solidjs/router";
-import { Component } from "solid-js";
-// types
+import { Accessor, Component } from "solid-js";
+// hooks
 import useForm from "../hooks/useForm";
 // types
-import { AuthForm, RegisterForm } from "../types/Form";
+import { RegisterForm } from "../types/Form";
+
+declare module "solid-js" {
+  namespace JSX {
+    interface Directives {
+      validate: number;
+    }
+  }
+}
 
 const RegisterScreen: Component = () => {
   const { handleInput, submitForm } = useForm<RegisterForm>({
@@ -15,9 +23,16 @@ const RegisterScreen: Component = () => {
     passwordConfirmation: "",
   });
 
-  // we want to get data from the form when the form is submitted
+  // we want to get the data from the form when the form is submitted
   const onFormSubmit = (form: RegisterForm) => {
     console.log(form);
+  };
+
+  const validate = (ref: HTMLInputElement, accessor: Accessor<number>) => {
+    const value = accessor();
+    
+    console.log(ref);
+    console.log(value);
   };
 
   return (
@@ -35,6 +50,7 @@ const RegisterScreen: Component = () => {
                     </label>
                     <input
                       onInput={handleInput}
+                      use:validate={100}
                       type="text"
                       name="fullName"
                       id="fullName"
@@ -51,6 +67,7 @@ const RegisterScreen: Component = () => {
                     </label>
                     <input
                       onInput={handleInput}
+                      use:validate={10000}
                       type="text"
                       name="nickName"
                       id="nickName"
@@ -121,7 +138,7 @@ const RegisterScreen: Component = () => {
               </div>
               <div class="flex-it py-2">
                 <button
-                  onclick={submitForm(onFormSubmit)}
+                  onClick={submitForm(onFormSubmit)}
                   type="button"
                   class="
                   bg-blue-400 hover:bg-blue-500 focus:ring-0
