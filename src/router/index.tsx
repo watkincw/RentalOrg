@@ -1,21 +1,43 @@
-import { Component, lazy, ParentComponent } from "solid-js";
 import { Route } from "@solidjs/router";
+import { Component, lazy, ParentComponent } from "solid-js";
+import App from "../App";
 // router/layouts
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
+// context
+import AuthProvider from "../context/auth";
 // screens
 import HomeScreen from "../screens/Home";
 // (lazy) screens
 const LoginScreen = lazy(() => import("../screens/Login"));
 const RegisterScreen = lazy(() => import("../screens/Register"));
 
+const ScreenExt: ParentComponent = (props) => {
+  return (
+    <>
+    {/* <UIProvider> */}
+      <AuthProvider>{props.children}</AuthProvider>
+    {/* </UIProvider> */}
+    </>
+  );
+};
+
+const withScreenExt = (Component: Component) => {
+  return (props: any) => (
+    <ScreenExt>
+      <App>
+        <Component {...props} />
+      </App>
+    </ScreenExt>
+  );
+};
+
 const AppRoutes = () => {
   return (
     <>
       <Route
         path="/"
-        component={MainLayout}
-      >
+        component={withScreenExt(MainLayout)}>
         <Route
           path="/"
           component={HomeScreen}
@@ -23,8 +45,7 @@ const AppRoutes = () => {
       </Route>
       <Route
         path="/auth"
-        component={AuthLayout}
-      >
+        component={withScreenExt(AuthLayout)}>
         <Route
           path="/login"
           component={LoginScreen}
