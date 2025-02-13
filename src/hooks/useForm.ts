@@ -24,18 +24,22 @@ const useForm = <T extends Form>(initialForm: T) => {
     ref.onblur = checkValidity(ref);
   };
 
-  const validator = (ref: HTMLInputElement) => {
-    return false;
+  const validator = (element: HTMLInputElement) => {
+    if (element.value.length === 0) {
+      true;
+    }
+
+    return element.value.length < 7;
   };
 
-  const checkValidity = (ref: HTMLInputElement) => () => {
+  const checkValidity = (element: HTMLInputElement) => () => {
     const message = "Error error error";
-    const isValid = validator(ref);
+    const isValid = validator(element);
 
     if (!isValid) {
-      setErrors(ref.name, message);
+      setErrors(element.name, message);
     } else {
-      setErrors(ref.name, "");
+      setErrors(element.name, "");
     }
 
     console.log(JSON.stringify(errors));
