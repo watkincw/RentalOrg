@@ -1,7 +1,30 @@
 import { A } from "@solidjs/router";
-import { Component } from "solid-js";
+import { Component, createSignal } from "solid-js";
+// types
+import { GliderInputEvent } from "../types/Form";
 
 const RegisterScreen: Component = () => {
+  const [form, setForm] = createSignal({
+    fullname: "",
+    nickName: "",
+    email: "",
+    avatar: "",
+    password: "",
+    passwordConfirmation: "",
+  });
+
+  const handleInput = (e: GliderInputEvent) => {
+    const { name, value } = e.currentTarget;
+    setForm({
+      ...form(),
+      [name]: value,
+    });
+  };
+
+  const submitForm = () => {
+    console.log(form());
+  };
+
   return (
     <div class="flex-it justify-center items-center h-full">
       <div class="text-white text-4xl font-bold">Glider - Create Account</div>
@@ -16,6 +39,7 @@ const RegisterScreen: Component = () => {
                       Full Name
                     </label>
                     <input
+                      onInput={handleInput}
                       type="text"
                       name="fullName"
                       id="fullName"
@@ -31,6 +55,7 @@ const RegisterScreen: Component = () => {
                       Nick Name
                     </label>
                     <input
+                      onInput={handleInput}
                       type="text"
                       name="nickName"
                       id="nickName"
@@ -43,6 +68,7 @@ const RegisterScreen: Component = () => {
                       Email
                     </label>
                     <input
+                      onInput={handleInput}
                       type="text"
                       name="email"
                       id="email"
@@ -55,6 +81,7 @@ const RegisterScreen: Component = () => {
                       Avatar
                     </label>
                     <input
+                      onInput={handleInput}
                       type="text"
                       name="avatar"
                       id="avatar"
@@ -67,6 +94,7 @@ const RegisterScreen: Component = () => {
                       Password
                     </label>
                     <input
+                      onInput={handleInput}
                       type="password"
                       name="password"
                       id="password"
@@ -79,6 +107,7 @@ const RegisterScreen: Component = () => {
                       Password Confirmation
                     </label>
                     <input
+                      onInput={handleInput}
                       type="password"
                       name="passwordConfirmation"
                       id="passwordConfirmation"
@@ -89,18 +118,20 @@ const RegisterScreen: Component = () => {
               </div>
               <div class="text-sm text-gray-600 pb-4">
                 Already Registered?{" "}
-                <A class="underline" href="/auth/register">
+                <A
+                  class="underline"
+                  href="/auth/register">
                   Go to Login
                 </A>
               </div>
               <div class="flex-it py-2">
                 <button
+                  onclick={submitForm}
                   type="button"
                   class="
                   bg-blue-400 hover:bg-blue-500 focus:ring-0
                   disabled:cursor-not-allowed disabled:bg-gray-400
-                  inline-flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-offset-2"
-                >
+                  inline-flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-offset-2">
                   Register
                 </button>
               </div>
