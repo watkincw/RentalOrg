@@ -1,5 +1,5 @@
 import { A } from "@solidjs/router";
-import { Component, Show } from "solid-js";
+import { Component } from "solid-js";
 // hooks
 import useForm, {
   compareWith,
