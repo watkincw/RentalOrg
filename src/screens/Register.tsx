@@ -1,10 +1,7 @@
 import { A } from "@solidjs/router";
 import { Component } from "solid-js";
 // hooks
-import useForm, {
-  firstLetterUppercase,
-  maxLengthValidator,
-} from "../hooks/useForm";
+import useForm, { firstLetterUppercase, FormError, maxLengthValidator } from "../hooks/useForm";
 // types
 import { RegisterForm } from "../types/Form";
 
@@ -33,9 +30,7 @@ const RegisterScreen: Component = () => {
               <div class="flex-it">
                 <div class="flex-it">
                   <div class="flex-it py-2">
-                    <label class="block text-sm font-medium text-gray-700">
-                      Full Name
-                    </label>
+                    <label class="block text-sm font-medium text-gray-700">Full Name</label>
                     <input
                       onInput={handleInput}
                       use:validate={[maxLengthValidator, firstLetterUppercase]}
@@ -44,15 +39,11 @@ const RegisterScreen: Component = () => {
                       id="fullName"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
-                    <div class="flex-it grow text-xs bg-red-400 text-white p-3 pl-3 mt-1 rounded-md">
-                      Error Error Beep Beep!
-                    </div>
+                    <FormError message="Just Testing" />
                   </div>
 
                   <div class="flex-it py-2">
-                    <label class="block text-sm font-medium text-gray-700">
-                      Nick Name
-                    </label>
+                    <label class="block text-sm font-medium text-gray-700">Nick Name</label>
                     <input
                       onInput={handleInput}
                       use:validate={[maxLengthValidator]}
@@ -64,9 +55,7 @@ const RegisterScreen: Component = () => {
                   </div>
 
                   <div class="flex-it py-2">
-                    <label class="block text-sm font-medium text-gray-700">
-                      Email
-                    </label>
+                    <label class="block text-sm font-medium text-gray-700">Email</label>
                     <input
                       onInput={handleInput}
                       type="text"
@@ -77,9 +66,7 @@ const RegisterScreen: Component = () => {
                   </div>
 
                   <div class="flex-it py-2">
-                    <label class="block text-sm font-medium text-gray-700">
-                      Avatar
-                    </label>
+                    <label class="block text-sm font-medium text-gray-700">Avatar</label>
                     <input
                       onInput={handleInput}
                       type="text"
@@ -90,9 +77,7 @@ const RegisterScreen: Component = () => {
                   </div>
 
                   <div class="flex-it py-2">
-                    <label class="block text-sm font-medium text-gray-700">
-                      Password
-                    </label>
+                    <label class="block text-sm font-medium text-gray-700">Password</label>
                     <input
                       onInput={handleInput}
                       type="password"
