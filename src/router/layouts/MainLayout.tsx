@@ -5,16 +5,16 @@ import { useAuthState } from "../../context/auth";
 // import PersistenceProvider from "../../context/persistence";
 
 const MainLayout: Component<ParentProps> = (props) => {
-  const authState = useAuthState();
+  const authState = useAuthState()!;
   const navigate = useNavigate();
 
   onMount(() => {
-    if (!authState?.isAuthenticated) {
+    if (!authState.isAuthenticated) {
       navigate("/auth/login", { replace: true });
     }
   });
 
-  if (!authState?.isAuthenticated) {
+  if (!authState.isAuthenticated) {
     return null;
   }
 
