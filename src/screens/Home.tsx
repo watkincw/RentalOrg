@@ -34,12 +34,6 @@ const HomeScreen: Component = () => {
       })
     );
 
-    // setGlides(
-    //   produce((glides) => {
-    //     glides.items.unshift(glide);
-    //   })
-    // );
-
     setContent("");
   }
 

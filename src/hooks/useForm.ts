@@ -1,7 +1,7 @@
 import { Accessor } from "solid-js";
-import { createStore } from "solid-js/store";
+import { createStore, produce } from "solid-js/store";
 // types
-import { Form, GliderInputEvent, SubmitCallback } from "../types/Form";
+import { Form, FormErrors, GliderInputEvent, SubmitCallback } from "../types/Form";
 
 declare module "solid-js" {
   namespace JSX {
@@ -13,10 +13,7 @@ declare module "solid-js" {
 
 type Validator = (element: HTMLInputElement, ...rest: any[]) => string;
 
-export const maxLengthValidator: Validator = (
-  element: HTMLInputElement,
-  maxLength = 17
-) => {
+export const maxLengthValidator: Validator = (element: HTMLInputElement, maxLength = 17) => {
   if (element.value.length === 0 || element.value.length < maxLength) {
     return "";
   }
@@ -38,7 +35,7 @@ export const firstLetterUppercase = (element: HTMLInputElement) => {
 
 const useForm = <T extends Form>(initialForm: T) => {
   const [form, setForm] = createStore(initialForm);
-  const [errors, setErrors] = createStore<Form>();
+  const [errors, setErrors] = createStore<FormErrors>();
 
   const handleInput = (e: GliderInputEvent) => {
     const { name, value } = e.currentTarget;
@@ -57,20 +54,23 @@ const useForm = <T extends Form>(initialForm: T) => {
     ref.onblur = checkValidity(ref, validators);
   };
 
-  const checkValidity =
-    (element: HTMLInputElement, validators: Validator[]) => () => {
-      for (const validator of validators) {
-        const message = validator(element);
+  const checkValidity = (element: HTMLInputElement, validators: Validator[]) => () => {
+    setErrors(element.name, []);
 
-        if (!!message) {
-          setErrors(element.name, message);
-        } else {
-          setErrors(element.name, "");
-        }
+    for (const validator of validators) {
+      const message = validator(element);
+
+      if (!!message) {
+        setErrors(
+          produce((errors) => {
+            errors[element.name].push(message);
+          })
+        );
       }
+    }
 
-      console.log(JSON.stringify(errors));
-    };
+    console.log(JSON.stringify(errors));
+  };
 
   return {
     handleInput,
