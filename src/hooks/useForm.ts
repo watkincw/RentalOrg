@@ -26,7 +26,7 @@ const useForm = <T extends Form>(initialForm: T) => {
 
   const validator = (element: HTMLInputElement) => {
     if (element.value.length === 0) {
-      true;
+      return true;
     }
 
     return element.value.length < 7;
