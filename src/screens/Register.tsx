@@ -30,9 +30,14 @@ const RegisterScreen: Component = () => {
 
   const validate = (ref: HTMLInputElement, accessor: Accessor<number>) => {
     const value = accessor();
-    
-    console.log(ref);
-    console.log(value);
+
+    ref.onblur = () => {
+      console.log("OnBlur");
+    };
+
+    ref.oninput = () => {
+      console.log("OnInput");
+    };
   };
 
   return (
