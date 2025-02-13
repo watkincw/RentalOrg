@@ -1,11 +1,13 @@
 import { A } from "@solidjs/router";
-import { Component, createSignal } from "solid-js";
+import { Component } from "solid-js";
 // types
-import { GliderInputEvent } from "../types/Form";
+import useForm from "../hooks/useForm";
+// types
+import { AuthForm, RegisterForm } from "../types/Form";
 
 const RegisterScreen: Component = () => {
-  const [form, setForm] = createSignal({
-    fullname: "",
+  const { handleInput, submitForm } = useForm<RegisterForm>({
+    fullName: "",
     nickName: "",
     email: "",
     avatar: "",
@@ -13,16 +15,9 @@ const RegisterScreen: Component = () => {
     passwordConfirmation: "",
   });
 
-  const handleInput = (e: GliderInputEvent) => {
-    const { name, value } = e.currentTarget;
-    setForm({
-      ...form(),
-      [name]: value,
-    });
-  };
-
-  const submitForm = () => {
-    console.log(form());
+  // we want to get data from the form when the form is submitted
+  const onFormSubmit = (form: RegisterForm) => {
+    console.log(form);
   };
 
   return (
@@ -120,13 +115,13 @@ const RegisterScreen: Component = () => {
                 Already Registered?{" "}
                 <A
                   class="underline"
-                  href="/auth/register">
+                  href="/auth/login">
                   Go to Login
                 </A>
               </div>
               <div class="flex-it py-2">
                 <button
-                  onclick={submitForm}
+                  onclick={submitForm(onFormSubmit)}
                   type="button"
                   class="
                   bg-blue-400 hover:bg-blue-500 focus:ring-0
