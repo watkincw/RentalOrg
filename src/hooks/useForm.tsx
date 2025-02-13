@@ -13,6 +13,16 @@ declare module "solid-js" {
 
 type Validator = (element: HTMLInputElement, ...rest: any[]) => string;
 
+const niceName = (text: string) => {
+  const words = text.split(/(?=[A-Z])/);
+
+  return words
+    .map((word, i) => {
+      return word[0].toUpperCase() + word.substring(1);
+    })
+    .join(" ");
+};
+
 export const FormError: ParentComponent = (props) => {
   const errors = () => (props.children as string[]) || [];
   return (
@@ -29,7 +39,7 @@ export const minLengthValidator: Validator = (element: HTMLInputElement, minLeng
     return "";
   }
 
-  return `${element.name} must be at least ${minLength + 1} charascters`;
+  return `${niceName(element.name)} must be at least ${minLength + 1} charascters`;
 };
 
 export const maxLengthValidator: Validator = (element: HTMLInputElement, maxLength = 17) => {
@@ -37,11 +47,11 @@ export const maxLengthValidator: Validator = (element: HTMLInputElement, maxLeng
     return "";
   }
 
-  return `${element.name} must be ${maxLength - 1} charascters or elss`;
+  return `${niceName(element.name)} must be ${maxLength - 1} charascters or elss`;
 };
 
 export const requiredValidator: Validator = (element: HTMLInputElement) => {
-  return element.value.length === 0 ? `${element.name} is required` : "";
+  return element.value.length === 0 ? `${niceName(element.name)} is required` : "";
 };
 
 export const firstLetterUppercase = (element: HTMLInputElement) => {
@@ -52,7 +62,7 @@ export const firstLetterUppercase = (element: HTMLInputElement) => {
   }
 
   return value[0] !== value[0].toUpperCase()
-    ? `${element.name} first letter should be uppercased`
+    ? `${niceName(element.name)} first letter should be uppercased`
     : "";
 };
 
