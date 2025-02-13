@@ -79,7 +79,7 @@ const RegisterScreen: Component = () => {
                   </div>
 
                   <div class="flex-it py-2">
-                    <label class="block text-sm font-medium text-gray-700">Profile Picture: (optional)</label>
+                    <label class="block text-sm font-medium text-gray-700">Profile Picture (optional)</label>
                     <input
                       onInput={handleInput}
                       type="text"
@@ -104,7 +104,7 @@ const RegisterScreen: Component = () => {
 
                   <div class="flex-it py-2">
                     <label class="block text-sm font-medium text-gray-700">
-                      Password Confirmation
+                      Confirm Password
                     </label>
                     <input
                       onInput={handleInput}
