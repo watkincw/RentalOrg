@@ -24,19 +24,16 @@ const useForm = <T extends Form>(initialForm: T) => {
     ref.onblur = checkValidity(ref);
   };
 
-  const validator = (element: HTMLInputElement) => {
-    if (element.value.length === 0) {
-      return true;
-    }
+  const maxLengthValidator = (element: HTMLInputElement, maxLength = 7) => {
+    if (element.value.length === 0 || element.value.length < maxLength) { return ""; }
 
-    return element.value.length < 7;
+    return `${element.name} should be less than ${maxLength} charascters`;
   };
 
   const checkValidity = (element: HTMLInputElement) => () => {
-    const message = "Error error error";
-    const isValid = validator(element);
+    const message = maxLengthValidator(element, 17);
 
-    if (!isValid) {
+    if (!!message) {
       setErrors(element.name, message);
     } else {
       setErrors(element.name, "");
