@@ -1,5 +1,5 @@
 import { A } from "@solidjs/router";
-import { Accessor, Component } from "solid-js";
+import { Component } from "solid-js";
 // hooks
 import useForm from "../hooks/useForm";
 // types
@@ -14,7 +14,7 @@ declare module "solid-js" {
 }
 
 const RegisterScreen: Component = () => {
-  const { handleInput, submitForm } = useForm<RegisterForm>({
+  const { handleInput, submitForm, validate } = useForm<RegisterForm>({
     fullName: "",
     nickName: "",
     email: "",
@@ -26,18 +26,6 @@ const RegisterScreen: Component = () => {
   // we want to get the data from the form when the form is submitted
   const onFormSubmit = (form: RegisterForm) => {
     console.log(form);
-  };
-
-  const validate = (ref: HTMLInputElement, accessor: Accessor<number>) => {
-    const value = accessor();
-
-    ref.onblur = () => {
-      console.log("OnBlur");
-    };
-
-    ref.oninput = () => {
-      console.log("OnInput");
-    };
   };
 
   return (
