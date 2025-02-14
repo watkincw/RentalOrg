@@ -1,5 +1,5 @@
 import { A } from "@solidjs/router";
-import { Component, onMount } from "solid-js";
+import { Component } from "solid-js";
 // hooks
 import useForm, {
   compareWith,
@@ -12,8 +12,6 @@ import useForm, {
 // types
 import { RegisterForm } from "../types/Form";
 import useRegister from "../hooks/useRegister";
-// db
-import { getUsers } from "../db";
 
 const RegisterScreen: Component = () => {
   const { register } = useRegister();
@@ -27,10 +25,7 @@ const RegisterScreen: Component = () => {
     passwordConfirmation: "",
   });
 
-  onMount(async () => {
-    const users = await getUsers();
-    console.log(users);
-  });
+
 
   // we want to get the data from the form when the form is submitted
   const onFormSubmit = (form: RegisterForm) => {
