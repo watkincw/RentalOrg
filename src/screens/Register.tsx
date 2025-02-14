@@ -11,8 +11,11 @@ import useForm, {
 } from "../hooks/useForm";
 // types
 import { RegisterForm } from "../types/Form";
+import useRegister from "../hooks/useRegister";
 
 const RegisterScreen: Component = () => {
+  const { register } = useRegister();
+
   const { handleInput, submitForm, validate, errors } = useForm<RegisterForm>({
     fullName: "",
     userName: "",
@@ -24,7 +27,7 @@ const RegisterScreen: Component = () => {
 
   // we want to get the data from the form when the form is submitted
   const onFormSubmit = (form: RegisterForm) => {
-    console.log(form);
+    register(form);
   };
 
   return (
