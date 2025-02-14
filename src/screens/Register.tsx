@@ -28,6 +28,7 @@ const RegisterScreen: Component = () => {
   // we want to get the data from the form when the form is submitted
   const onFormSubmit = (form: RegisterForm) => {
     register(form);
+    console.log(form);
   };
 
   return (
