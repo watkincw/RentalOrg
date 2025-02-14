@@ -9,9 +9,9 @@ import useForm, {
   minLengthValidator,
   requiredValidator,
 } from "../hooks/useForm";
+import useRegister from "../hooks/useRegister";
 // types
 import { RegisterForm } from "../types/Form";
-import useRegister from "../hooks/useRegister";
 
 const RegisterScreen: Component = () => {
   const { register } = useRegister();
@@ -24,8 +24,6 @@ const RegisterScreen: Component = () => {
     password: "",
     passwordConfirmation: "",
   });
-
-
 
   // we want to get the data from the form when the form is submitted
   const onFormSubmit = (form: RegisterForm) => {
