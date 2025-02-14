@@ -1,3 +1,4 @@
+// types
 import { RegisterForm } from "../types/Form";
 
 const useRegister = () => {
