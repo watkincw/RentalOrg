@@ -27,6 +27,7 @@ const register = async (form: RegisterForm) => {
 
 const login = async (loginForm: AuthForm) => {
   const { user } = await signInWithEmailAndPassword(firebaseAuth, loginForm.email, loginForm.password);
+  return user;
 };
 
 const logout = () => {
