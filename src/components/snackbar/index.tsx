@@ -3,10 +3,11 @@ import { Component } from "solid-js";
 // context
 import { SnackbarMessage } from "../../context/ui";
 
-type Props = SnackbarMessage
+type Props = {
+  onClose: () => void;
+} & SnackbarMessage;
 
 export const Snackbar: Component<Props> = (props) => {
-
   return (
     <div
       class="min-w-68 text-white flex-it font-bold rounded-md md:max-w-xs w-full text-sm shadow-md"
@@ -16,7 +17,9 @@ export const Snackbar: Component<Props> = (props) => {
         "bg-yellow-600": props.type === "warning",
       }}>
       <div class="flex-it flex-row-reverse p-1">
-        <button class="text-xl rounded-full">
+        <button
+          onclick={props.onClose}
+          class="text-xl rounded-full">
           <IoCloseCircle />
         </button>
       </div>

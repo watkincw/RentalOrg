@@ -13,6 +13,7 @@ type UIState = {
 
 type UIDispatch = {
   addSnackbar: (s: SnackbarMessage) => void;
+  removeSnackbar: (id: string) => () => void;
 };
 
 const UIStateContext = createContext<UIState>();
@@ -37,9 +38,19 @@ const UIProvider: ParentComponent = (props) => {
     );
   };
 
+  const removeSnackbar = (id: string) => () => {
+    alert("Removing: " + id);
+  };
+
   return (
     <UIStateContext.Provider value={store}>
-      <UIDispatchContext.Provider value={{ addSnackbar }}>{props.children}</UIDispatchContext.Provider>
+      <UIDispatchContext.Provider
+        value={{
+          addSnackbar,
+          removeSnackbar,
+        }}>
+        {props.children}
+      </UIDispatchContext.Provider>
     </UIStateContext.Provider>
   );
 };
