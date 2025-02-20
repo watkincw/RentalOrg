@@ -6,6 +6,7 @@ import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 // context
 import AuthProvider from "../context/auth";
+import UIProvider from "../context/ui";
 // screens
 import HomeScreen from "../screens/Home";
 // (lazy) screens
@@ -15,9 +16,9 @@ const RegisterScreen = lazy(() => import("../screens/Register"));
 const ScreenExt: ParentComponent = (props) => {
   return (
     <>
-    {/* <UIProvider> */}
+    <UIProvider>
       <AuthProvider>{props.children}</AuthProvider>
-    {/* </UIProvider> */}
+    </UIProvider>
     </>
   );
 };
