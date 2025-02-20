@@ -21,7 +21,6 @@ const MainLayout: Component<ParentProps> = (props) => {
   return (
     <>
     {/* <PersistenceProvider> */}
-      <div>I am MainLayout</div>
       {props.children}
     {/* </PersistenceProvider> */}
     </>
