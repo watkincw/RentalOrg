@@ -16,9 +16,9 @@ const RegisterScreen = lazy(() => import("../screens/Register"));
 const ScreenExt: ParentComponent = (props) => {
   return (
     <>
-    <UIProvider>
-      <AuthProvider>{props.children}</AuthProvider>
-    </UIProvider>
+      <UIProvider>
+        <AuthProvider>{props.children}</AuthProvider>
+      </UIProvider>
     </>
   );
 };
