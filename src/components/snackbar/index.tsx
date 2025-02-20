@@ -23,7 +23,6 @@ export const Snackbar: Component<Props> = (initialProps) => {
   });
 
   createEffect(() => {
-    // console.log(completed());
     if (duration() <= 0) {
       window.clearInterval(timerId);
       props.onClose();
