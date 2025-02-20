@@ -2,14 +2,18 @@ import { Component, For, Show } from "solid-js";
 import { A } from "@solidjs/router";
 import { FiMoreHorizontal } from "solid-icons/fi";
 import { RiDesignQuillPenLine } from "solid-icons/ri";
+import defaultPic from "../../assets/favicon.ico";
 // components/sidebars
 import { links } from "./links";
 // utils
 import Popup from "../utils/Popup";
 // reactive
 import pageSize from "../../reactive/pageSize";
+// context
+import { useAuthState } from "../../context/auth";
 
 const MainSidebar: Component = () => {
+  const { user } = useAuthState()!;
   return (
     <header class="lg:flex-grow flex-it items-end">
       <div class="xl:w-80 w-20 flex-it">
@@ -29,13 +33,9 @@ const MainSidebar: Component = () => {
                         class="flex-it items-start flex-grow w-full"
                         href={link.href}>
                         <div class="p-3 flex-row justify-center items-center flex-it rounded-3xl hover:bg-gray-800 hover:rounded-3xl transition duration-200">
-                          <div class="flex-it">
-                            {link.icon()}
-                          </div>
+                          <div class="flex-it">{link.icon()}</div>
                           <div class="mx-4 text-2xl truncate xl:block hidden">
-                            <span class="truncate">
-                              {link.name}
-                            </span>
+                            <span class="truncate">{link.name}</span>
                           </div>
                         </div>
                       </A>
@@ -66,13 +66,11 @@ const MainSidebar: Component = () => {
                       <div class="w-10 h-10 overflow-visible">
                         <img
                           class="rounded-full"
-                          src="https://www.pinclipart.com/picdir/middle/133-1331433_free-user-avatar-icons-happy-flat-design-png.png"></img>
+                          src={user?.avatar || defaultPic}></img>
                       </div>
                     </div>
                     <div class="flex-it xl:flex hidden flex-grow flex-row justify-between items-center">
-                      <div class="flex-it mx-3 font-bold">
-                        Filip99
-                      </div>
+                      <div class="flex-it mx-3 font-bold">{user?.fullName}</div>
                       <div class="flex-it">
                         <FiMoreHorizontal />
                       </div>
