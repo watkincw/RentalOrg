@@ -11,31 +11,33 @@ type UIState = {
   snackbars: SnackbarMessage[];
 };
 
+type UIDispatch = {
+  addSnackbar: (s: SnackbarMessage) => void;
+};
+
 const UIStateContext = createContext<UIState>();
+const UIDispatchContext = createContext<UIDispatch>();
 
 const defaultState = (): UIState => ({
-  snackbars: [
-    {
-      message: "success message",
-      type: "success",
-    },
-    {
-      message: "warning message",
-      type: "warning",
-    },
-    {
-      message: "error message",
-      type: "error",
-    },
-  ],
+  snackbars: [],
 });
 
 const UIProvider: ParentComponent = (props) => {
   const [store, setStore] = createStore<UIState>(defaultState());
 
-  return <UIStateContext.Provider value={store}>{props.children}</UIStateContext.Provider>;
+  const addSnackbar = (snackbar: SnackbarMessage) => {
+    // setStore(snackbar)
+    alert(snackbar.message);
+  };
+
+  return (
+    <UIStateContext.Provider value={store}>
+      <UIDispatchContext.Provider value={{ addSnackbar }}>{props.children}</UIDispatchContext.Provider>
+    </UIStateContext.Provider>
+  );
 };
 
 export const useUIState = () => useContext(UIStateContext)!;
+export const useUIDispatch = () => useContext(UIDispatchContext)!;
 
 export default UIProvider;
