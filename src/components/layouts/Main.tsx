@@ -1,4 +1,5 @@
 import { ParentComponent } from "solid-js";
+// components/sidebars
 import TrendsSidebar from "../sidebars/Trends";
 import MainSidebar from "../sidebars/Main";
 
