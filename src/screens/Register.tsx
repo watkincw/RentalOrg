@@ -9,12 +9,12 @@ import useForm, {
   minLengthValidator,
   requiredValidator,
 } from "../hooks/useForm";
-import useRegister from "../hooks/useRegister";
+import useAuthenticate from "../hooks/useAuthenticate";
 // types
 import { RegisterForm } from "../types/Form";
 
 const RegisterScreen: Component = () => {
-  const { registerUser } = useRegister();
+  const { authUser, loading } = useAuthenticate("register");
 
   const { handleInput, submitForm, validate, errors } = useForm<RegisterForm>({
     fullName: "",
@@ -27,7 +27,7 @@ const RegisterScreen: Component = () => {
 
   // we want to get the data from the form when the form is submitted
   const onFormSubmit = (form: RegisterForm) => {
-    registerUser(form);
+    authUser(form);
     console.log(form);
   };
 
@@ -131,6 +131,7 @@ const RegisterScreen: Component = () => {
               </div>
               <div class="flex-it py-2">
                 <button
+                  disabled={loading()}
                   onClick={submitForm(onFormSubmit)}
                   type="button"
                   class="

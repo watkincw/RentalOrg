@@ -22,7 +22,7 @@ const firebaseConfig = {
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 // Initialize db
-export const db = getFirestore(app);
+export const db = getFirestore(app, "rentalorg-db");
 // Initialize Auth
 export const firebaseAuth = getAuth(app);
 
