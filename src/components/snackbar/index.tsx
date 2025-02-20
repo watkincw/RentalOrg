@@ -12,6 +12,8 @@ export const Snackbar: Component<Props> = (initialProps) => {
   let props = mergeProps({ autoHideDuration: 10000 }, initialProps);
   const [duration, setDuration] = createSignal(props.autoHideDuration);
 
+  const completed = () => Math.floor((duration() / props.autoHideDuration) * 100);
+
   let timerId: number;
 
   onMount(() => {
@@ -21,6 +23,7 @@ export const Snackbar: Component<Props> = (initialProps) => {
   });
 
   createEffect(() => {
+    // console.log(completed());
     if (duration() <= 0) {
       window.clearInterval(timerId);
       props.onClose();
@@ -44,7 +47,7 @@ export const Snackbar: Component<Props> = (initialProps) => {
       </div>
       <div class="flex-it px-2 pb-3">{props.message}</div>
       <div
-        style={{ width: `100%` }}
+        style={{ width: `${completed()}%` }}
         class="bg-black opacity-40 text-right h-2"></div>
     </div>
   );
