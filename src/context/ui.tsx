@@ -1,5 +1,5 @@
-import { createContext, ParentComponent, useContext } from "solid-js";
-import { createStore } from "solid-js/store";
+import { createContext, createUniqueId, ParentComponent, useContext } from "solid-js";
+import { createStore, produce } from "solid-js/store";
 
 export type SnackbarMessage = {
   message: string;
@@ -26,8 +26,15 @@ const UIProvider: ParentComponent = (props) => {
   const [store, setStore] = createStore<UIState>(defaultState());
 
   const addSnackbar = (snackbar: SnackbarMessage) => {
-    // setStore(snackbar)
-    alert(snackbar.message);
+    setStore(
+      "snackbars",
+      produce((snackbars) => {
+        snackbars.push({
+          id: createUniqueId(),
+          ...snackbar,
+        });
+      })
+    );
   };
 
   return (
