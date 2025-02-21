@@ -17,12 +17,14 @@ const useMessenger = () => {
       ...form,
     };
 
-    alert(JSON.stringify(glide));
+    // alert(JSON.stringify(glide));
+    setForm({ content: "" });
   };
 
   return {
     handleInput,
     handleSubmit,
+    form
   };
 };
 
