@@ -4,7 +4,11 @@ import { db } from "../db";
 // types
 import { Glide } from "../types/Glide";
 
-const createGlide = async (form: { content: string; uid: string }): Promise<Glide> =>{
+const getGlides = () => {
+  alert("getting new glides!");
+};
+
+const createGlide = async (form: { content: string; uid: string }): Promise<Glide> => {
   const userRef = doc(db, "users", form.uid);
 
   const glideToStore = {
@@ -21,4 +25,4 @@ const createGlide = async (form: { content: string; uid: string }): Promise<Glid
   return { ...glideToStore, id: added.id };
 };
 
-export { createGlide };
+export { createGlide, getGlides };
