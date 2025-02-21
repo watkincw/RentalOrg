@@ -4,7 +4,7 @@ import { db } from "../db";
 // types
 import { Glide } from "../types/Glide";
 
-const createGlide = async (form: { content: string; uid: string }): Promise<Glide> => {
+const createGlide = async (form: { content: string; uid: string }): Promise<Glide> =>{
   const userRef = doc(db, "users", form.uid);
 
   const glideToStore = {
