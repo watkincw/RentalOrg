@@ -1,5 +1,6 @@
 import { Component } from "solid-js";
 import { FaBrandsGlideG } from "solid-icons/fa";
+import { CenteredDataLoader } from "./DataLoader";
 
 type Props = {
   size: number;
@@ -8,10 +9,7 @@ type Props = {
 const Loader: Component<Props> = (props) => {
   return (
     <div class="flex-it text-white justify-center items-center h-full">
-      Loading...
-      <div class="rotating">
-        <FaBrandsGlideG size={props.size} />
-      </div>
+      <CenteredDataLoader />
     </div>
   );
 };
