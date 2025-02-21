@@ -1,4 +1,4 @@
-import { Accessor, Component, For, Show } from "solid-js";
+import { Accessor, Component, For, onCleanup, onMount, Show } from "solid-js";
 // components
 import GlidePost from "./GlidePost";
 import { CenteredDataLoader } from "../utils/DataLoader";
@@ -14,6 +14,24 @@ type Props = {
 };
 
 const PaginatedGlides: Component<Props> = (props) => {
+  let lastItemRef: HTMLDivElement;
+
+  onMount(() => {
+    window.addEventListener("scroll", loadNewItems);
+  });
+
+  onCleanup(() => {
+    window.removeEventListener("scroll", loadNewItems);
+  });
+
+  const loadNewItems = () => {
+    // console.log(lastItemRef!.getBoundingClientRect().top);
+
+    if (lastItemRef!.getBoundingClientRect().top <= window.innerHeight + 100) {
+      console.log("load new items");
+    }
+  };
+
   return (
     <>
       <For each={Array.from({ length: props.page() })}>
@@ -26,6 +44,8 @@ const PaginatedGlides: Component<Props> = (props) => {
       <Show when={props.loading}>
         <CenteredDataLoader />
       </Show>
+      <div ref={lastItemRef!}></div>
+      <div class="h-96"></div>
     </>
   );
 };
