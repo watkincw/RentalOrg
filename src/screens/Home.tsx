@@ -7,7 +7,7 @@ import PaginatedGlides from "../components/glides/PaginatedGlides";
 import useGlides from "../hooks/useGlides";
 
 const HomeScreen: Component = () => {
-  const { store, addGlide, page } = useGlides();
+  const { store, addGlide, page, loadGlides } = useGlides();
 
   return (
     <MainLayout>
@@ -17,6 +17,7 @@ const HomeScreen: Component = () => {
         page={page}
         pages={store.pages}
         loading={store.loading}
+        loadMoreGlides={loadGlides}
       />
     </MainLayout>
   );

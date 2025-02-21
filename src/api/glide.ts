@@ -8,7 +8,10 @@ import {
   limit,
   orderBy,
   query,
+  QueryDocumentSnapshot,
+  startAfter,
   Timestamp,
+  QueryConstraint,
 } from "firebase/firestore";
 // db
 import { db } from "../db";
@@ -16,12 +19,19 @@ import { db } from "../db";
 import { Glide } from "../types/Glide";
 import { User } from "../types/User";
 
-const getGlides = async () => {
-  const constraints = [orderBy("date", "desc"), limit(10)];
+const getGlides = async (
+  lastGlideCurrentlyLoaded: QueryDocumentSnapshot | null
+) => {
+  const constraints: QueryConstraint[] = [orderBy("date", "desc"), limit(10)];
+
+  if (!!lastGlideCurrentlyLoaded) {
+    constraints.push(startAfter(lastGlideCurrentlyLoaded));
+  }
 
   const q = query(collection(db, "glides"), ...constraints);
+
   const qSnapshot = await getDocs(q);
-  const lastGlideCurrentlyLoaded = qSnapshot.docs[qSnapshot.docs.length - 1];
+  const _lastGlideCurrentlyLoaded = qSnapshot.docs[qSnapshot.docs.length - 1];
 
   const glides = await Promise.all(
     qSnapshot.docs.map(async (doc) => {
@@ -33,7 +43,7 @@ const getGlides = async () => {
     })
   );
 
-  return { glides, lastGlideCurrentlyLoaded };
+  return { glides, lastGlideCurrentlyLoaded: _lastGlideCurrentlyLoaded };
 };
 
 const createGlide = async (form: {

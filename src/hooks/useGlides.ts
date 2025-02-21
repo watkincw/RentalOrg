@@ -34,7 +34,9 @@ const useGlides = () => {
     setStore("loading", true);
 
     try {
-      const { glides, lastGlideCurrentlyLoaded } = await getGlides();
+      const { glides, lastGlideCurrentlyLoaded } = await getGlides(
+        store.lastGlideCurrentlyLoaded
+      );
 
       if (glides.length > 0) {
         setStore(
@@ -42,6 +44,8 @@ const useGlides = () => {
             store.pages[_page] = { glides };
           })
         );
+
+        setpage(_page + 1);
       }
 
       setStore("lastGlideCurrentlyLoaded", lastGlideCurrentlyLoaded);
@@ -51,8 +55,6 @@ const useGlides = () => {
     } finally {
       setStore("loading", false);
     }
-
-    getGlides();
   };
 
   const addGlide = (glide: Glide | undefined) => {

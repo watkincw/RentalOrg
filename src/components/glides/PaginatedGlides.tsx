@@ -11,6 +11,7 @@ type Props = {
     [key: string]: { glides: Glide[] };
   };
   loading: boolean;
+  loadMoreGlides: () => Promise<void>;
 };
 
 const PaginatedGlides: Component<Props> = (props) => {
@@ -25,10 +26,10 @@ const PaginatedGlides: Component<Props> = (props) => {
   });
 
   const loadNewItems = () => {
-    // console.log(lastItemRef!.getBoundingClientRect().top);
-
     if (lastItemRef!.getBoundingClientRect().top <= window.innerHeight + 100) {
-      console.log("loading new items");
+      if (!props.loading) {
+        props.loadMoreGlides();
+      }
     }
   };
 
