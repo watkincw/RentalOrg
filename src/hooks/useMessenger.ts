@@ -22,7 +22,7 @@ const useMessenger = () => {
     setForm(name, value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!isAuthenticated) {
       addSnackbar({ message: "You must be logged in", type: "error" });
       return;
@@ -36,7 +36,8 @@ const useMessenger = () => {
     };
 
     try {
-      createGlide(glide);
+      await createGlide(glide);
+      addSnackbar({ message: "Glide Created!", type: "success" });
       setForm({ content: "" });
     } catch (error) {
       const message = (error as FirebaseError).message;
