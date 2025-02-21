@@ -37,6 +37,14 @@ const useMessenger = () => {
 
     try {
       const newGlide = await createGlide(glide);
+      newGlide.user = {
+        userName: user!.userName,
+        avatar: user!.avatar
+      };
+
+      
+
+
       addSnackbar({ message: "Glide Created!", type: "success" });
       setForm({ content: "" });
 

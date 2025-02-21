@@ -35,7 +35,10 @@ const getGlides = async () => {
   return { glides };
 };
 
-const createGlide = async (form: { content: string; uid: string }): Promise<Glide> => {
+const createGlide = async (form: {
+  content: string;
+  uid: string;
+}): Promise<Glide> => {
   const userRef = doc(db, "users", form.uid);
 
   const glideToStore = {

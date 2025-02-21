@@ -2,17 +2,17 @@ import { Component } from "solid-js";
 import { AiOutlineMessage } from "solid-icons/ai";
 import { FaRegularHeart } from "solid-icons/fa";
 import { FiTrash } from "solid-icons/fi";
+import defaultPic from "../../assets/favicon.ico";
 // types
 import { Glide } from "../../types/Glide";
 
 type Props = {
-  glide: Glide
-}
+  glide: Glide;
+};
 
 const GlidePost: Component<Props> = (props) => {
-
-  const glide = () => props.glide
-  const user = () => glide().user
+  const glide = () => props.glide;
+  const user = () => glide().user;
 
   return (
     <div class="flex-it p-4 border-b-1 border-solid border-gray-700">
@@ -21,15 +21,14 @@ const GlidePost: Component<Props> = (props) => {
           <div class="w-12 h-12 overflow-visible cursor-pointer transition duration-200 hover:opacity-80">
             <img
               class="rounded-full"
-              src={user().avatar}
-            ></img>
+              src={user().avatar || defaultPic}></img>
           </div>
         </div>
         <article class="flex-it flex-grow flex-shrink cursor-pointer">
           <div class="flex-it justify-center flex-grow mb-1">
             <div class="flex-it justify-between flex-row w-full">
               <div>
-                <span class="font-bold">{user().nickName}</span>
+                <span class="font-bold">{user().userName}</span>
                 <span class="mx-2">&#8226;</span>
                 <span class="text-gray-400">2h</span>
               </div>
