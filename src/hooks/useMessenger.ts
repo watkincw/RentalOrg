@@ -36,9 +36,11 @@ const useMessenger = () => {
     };
 
     try {
-      await createGlide(glide);
+      const newGlide = await createGlide(glide);
       addSnackbar({ message: "Glide Created!", type: "success" });
       setForm({ content: "" });
+
+      return newGlide;
     } catch (error) {
       const message = (error as FirebaseError).message;
       addSnackbar({ message, type: "error" });
@@ -51,6 +53,7 @@ const useMessenger = () => {
     handleInput,
     handleSubmit,
     form,
+    loading,
   };
 };
 
