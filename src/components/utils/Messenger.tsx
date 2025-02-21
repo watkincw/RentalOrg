@@ -5,10 +5,21 @@ import defaultPic from "../../assets/favicon.ico";
 import { useAuthState } from "../../context/auth";
 // hooks
 import useMessenger from "../../hooks/useMessenger";
+// types
+import { GliderInputEvent } from "../../types/Form";
 
 const Messenger = () => {
   const { user } = useAuthState()!;
   const { handleInput, handleSubmit, form } = useMessenger();
+
+  const autoSize = (e: GliderInputEvent) => {
+    const el = e.currentTarget;
+    const { scrollHeight } = el;
+
+    //set to 0, THEN set to 'auto height'
+    el.style.height = "0px";
+    el.style.height = scrollHeight + "px";
+  };
 
   return (
     <div class="flex-it py-1 px-4 flex-row">
@@ -23,7 +34,10 @@ const Messenger = () => {
         <div class="flex-it">
           <textarea
             value={form.content}
-            onInput={handleInput}
+            onInput={(e) => {
+              handleInput(e);
+              autoSize(e);
+            }}
             name="content"
             rows="1"
             id="glide"
