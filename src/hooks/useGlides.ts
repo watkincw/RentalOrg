@@ -31,6 +31,12 @@ const useGlides = () => {
 
   const loadGlides = async () => {
     const _page = page();
+
+    if (_page > 1 && !store.lastGlideCurrentlyLoaded) {
+    console.log("--- ALL DATA LOADED ---");
+      return
+    };
+
     setStore("loading", true);
 
     try {
