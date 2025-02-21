@@ -1,8 +1,8 @@
 import { Component, For } from "solid-js";
 // components
 import MainLayout from "../components/layouts/Main";
-import GlidePost from "../components/glides/GlidePost";
 import Messenger from "../components/utils/Messenger";
+import PaginatedGlides from "../components/glides/PaginatedGlides";
 // hooks
 import useGlides from "../hooks/useGlides";
 
@@ -11,15 +11,12 @@ const HomeScreen: Component = () => {
 
   return (
     <MainLayout>
-      <Messenger onGlideAdded={addGlide}/>
+      <Messenger onGlideAdded={addGlide} />
       <div class="h-px bg-gray-700 my-1" />
-      <For each={Array.from({ length: page() })}>
-        {(_, i) => (
-          <For each={store.pages[i() + 1]?.glides}>
-            {(glide) => <GlidePost glide={glide} />}
-          </For>
-        )}
-      </For>
+      <PaginatedGlides
+        page={page}
+        pages={store.pages}
+      />
     </MainLayout>
   );
 };

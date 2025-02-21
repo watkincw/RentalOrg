@@ -47,7 +47,7 @@ const useGlides = () => {
     getGlides();
   };
 
-  const addGlide = (glide: Glide | undefined) =>{
+  const addGlide = (glide: Glide | undefined) => {
     if (!glide) return;
 
     const page = 1;
