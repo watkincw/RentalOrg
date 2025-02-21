@@ -47,7 +47,9 @@ const useGlides = () => {
     getGlides();
   };
 
-  const addGlide = (glide: Glide) => {
+  const addGlide = (glide: Glide | undefined) => {
+    if (!glide) return;
+
     const page = 1;
 
     setStore(
@@ -56,7 +58,6 @@ const useGlides = () => {
           store.pages[page] = { glides: [] };
         }
 
-        // store.pages[page].glides = [{ ...glide }, ...store.pages[page].glides];
         store.pages[page].glides.unshift({ ...glide });
       })
     );
