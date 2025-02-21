@@ -28,7 +28,7 @@ const PaginatedGlides: Component<Props> = (props) => {
     // console.log(lastItemRef!.getBoundingClientRect().top);
 
     if (lastItemRef!.getBoundingClientRect().top <= window.innerHeight + 100) {
-      console.log("load new items");
+      console.log("loading new items");
     }
   };
 

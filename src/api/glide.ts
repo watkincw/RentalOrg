@@ -21,6 +21,7 @@ const getGlides = async () => {
 
   const q = query(collection(db, "glides"), ...constraints);
   const qSnapshot = await getDocs(q);
+  const lastGlideCurrentlyLoaded = qSnapshot.docs[qSnapshot.docs.length - 1];
 
   const glides = await Promise.all(
     qSnapshot.docs.map(async (doc) => {
@@ -32,7 +33,7 @@ const getGlides = async () => {
     })
   );
 
-  return { glides };
+  return { glides, lastGlideCurrentlyLoaded };
 };
 
 const createGlide = async (form: {
