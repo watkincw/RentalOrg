@@ -22,6 +22,7 @@ const useGlides = () => {
 
   const loadGlides = async () => {
     setStore("loading", true);
+    
     try {
       const { glides } = await getGlides();
       setStore("glides", glides);
