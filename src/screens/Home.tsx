@@ -16,6 +16,7 @@ const HomeScreen: Component = () => {
       <PaginatedGlides
         page={page}
         pages={store.pages}
+        loading={store.loading}
       />
     </MainLayout>
   );
