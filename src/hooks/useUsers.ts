@@ -6,10 +6,11 @@ import { User } from "../types/User";
 import * as api from "../api/user";
 // context
 import { useUIDispatch } from "../context/ui";
-import { useAuthState } from "../context/auth";
+import { useAuthDispatch, useAuthState } from "../context/auth";
 
 const useUsers = () => {
   const { user } = useAuthState()!;
+  const { updateUser } = useAuthDispatch()!;
   const { addSnackbar } = useUIDispatch();
   const [users, setUsers] = createSignal<User[]>([]);
   const [loading, setLoading] = createSignal(true);
@@ -33,19 +34,20 @@ const useUsers = () => {
 
   const followUser = async (followingUser: User) => {
     setLoadingFollow(true);
+    updateUser({});
 
-    try {
-      await api.followUser(user!.uid, followingUser.uid);
-      addSnackbar({
-        message: `Now following ${followingUser.userName}`,
-        type: "success",
-      });
-    } catch (error) {
-      const message = (error as FirebaseError).message;
-      addSnackbar({ message, type: "error" });
-    } finally {
-      setLoadingFollow(false);
-    }
+    // try {
+    //   await api.followUser(user!.uid, followingUser.uid);
+    //   addSnackbar({
+    //     message: `Now following ${followingUser.userName}`,
+    //     type: "success",
+    //   });
+    // } catch (error) {
+    //   const message = (error as FirebaseError).message;
+    //   addSnackbar({ message, type: "error" });
+    // } finally {
+    //   setLoadingFollow(false);
+    // }
   };
 
   return {
