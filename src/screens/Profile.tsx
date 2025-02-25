@@ -9,7 +9,7 @@ import { useAuthState } from "../context/auth";
 import useUsers from "../hooks/useUsers";
 
 const ProfileScreen: Component = () => {
-  const { users, loading, followUser } = useUsers();
+  const { users, loading, followUser, loadingFollow } = useUsers();
   const authState = useAuthState()!;
 
   return (
@@ -56,6 +56,7 @@ const ProfileScreen: Component = () => {
                         </div>
                         <div class="flex-it w-32 mt-3 cursor-pointer">
                           <button
+                            disabled={loadingFollow()}
                             onClick={() => followUser(user)}
                             type="button"
                             class="

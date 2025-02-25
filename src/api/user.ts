@@ -29,8 +29,7 @@ const getUsers = async (loggedInUser: User) => {
       const userHasFollowers =
         loggedInUser.following.filter((following) => following.id === user.uid)
           .length > 0;
-          
-      console.log(!userHasFollowers);
+
       return !userHasFollowers;
     });
 

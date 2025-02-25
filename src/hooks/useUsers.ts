@@ -13,6 +13,7 @@ const useUsers = () => {
   const { addSnackbar } = useUIDispatch();
   const [users, setUsers] = createSignal<User[]>([]);
   const [loading, setLoading] = createSignal(true);
+  const [loadingFollow, setLoadingFollow] = createSignal(false);
 
   onMount(() => {
     loadUsers();
@@ -31,14 +32,27 @@ const useUsers = () => {
   };
 
   const followUser = async (followingUser: User) => {
-    await api.followUser(user!.uid, followingUser.uid);
-    alert("following done");
+    setLoadingFollow(true);
+
+    try {
+      await api.followUser(user!.uid, followingUser.uid);
+      addSnackbar({
+        message: `Now following ${followingUser.userName}`,
+        type: "success",
+      });
+    } catch (error) {
+      const message = (error as FirebaseError).message;
+      addSnackbar({ message, type: "error" });
+    } finally {
+      setLoadingFollow(false);
+    }
   };
 
   return {
     loading,
     users,
     followUser,
+    loadingFollow,
   };
 };
 
