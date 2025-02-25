@@ -13,6 +13,7 @@ import {
   Timestamp,
   QueryConstraint,
   where,
+  onSnapshot,
 } from "firebase/firestore";
 // db
 import { db } from "../db";
@@ -24,15 +25,16 @@ const getGlides = async (
   loggedInUser: User,
   lastGlideCurrentlyLoaded: QueryDocumentSnapshot | null
 ) => {
-  const _loggedInUsersGlides = doc(db, "users", loggedInUser.uid)
+  const _loggedInUsersGlides = doc(db, "users", loggedInUser.uid);
   const constraints: QueryConstraint[] = [orderBy("date", "desc"), limit(10)];
 
   // only display glides of users you follow, and your own
   if (loggedInUser.following.length > 0) {
-    constraints.push(where("user", "in", [...loggedInUser.following, _loggedInUsersGlides]));
-  }else{
+    constraints.push(
+      where("user", "in", [...loggedInUser.following, _loggedInUsersGlides])
+    );
+  } else {
     constraints.push(where("user", "==", _loggedInUsersGlides));
-
   }
 
   if (!!lastGlideCurrentlyLoaded) {
@@ -57,6 +59,22 @@ const getGlides = async (
   return { glides, lastGlideCurrentlyLoaded: _lastGlideCurrentlyLoaded };
 };
 
+// TODO: update to link renters to landlords
+const subscribeToGlides = (loggedInUser: User) => {
+  const _collection = collection(db, "glides");
+
+  const constraints = [
+    where("date", ">", Timestamp.now()),
+    where("user", "in", loggedInUser.following),
+  ];
+
+  const q = query(_collection, ...constraints);
+
+  onSnapshot(q, (querySnapshot) => {
+    console.log(querySnapshot);
+  });
+};
+
 const createGlide = async (form: {
   content: string;
   uid: string;
@@ -77,4 +95,4 @@ const createGlide = async (form: {
   return { ...glideToStore, id: added.id };
 };
 
-export { createGlide, getGlides };
+export { createGlide, getGlides, subscribeToGlides };

@@ -5,7 +5,8 @@ import { QueryDocumentSnapshot } from "firebase/firestore";
 // types
 import { Glide } from "../types/Glide";
 // api
-import { getGlides } from "../api/glide";
+import * as api from "../api/glide";
+// context
 import { useAuthState } from "../context/auth";
 
 type State = {
@@ -42,7 +43,7 @@ const useGlides = () => {
     setStore("loading", true);
 
     try {
-      const { glides, lastGlideCurrentlyLoaded } = await getGlides(
+      const { glides, lastGlideCurrentlyLoaded } = await api.getGlides(
         user!,
         store.lastGlideCurrentlyLoaded
       );
@@ -66,6 +67,13 @@ const useGlides = () => {
     }
   };
 
+  const subscribeToGlides = () => {
+    if (user?.following.length == 0) {
+      return;
+    }
+    api.subscribeToGlides(user!);
+  };
+
   const addGlide = (glide: Glide | undefined) => {
     if (!glide) return;
 
@@ -82,7 +90,7 @@ const useGlides = () => {
     );
   };
 
-  return { page, loadGlides, addGlide, store };
+  return { page, loadGlides, addGlide, store, subscribeToGlides };
 };
 
 export default useGlides;
