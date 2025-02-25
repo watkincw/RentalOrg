@@ -38,9 +38,12 @@ const useUsers = () => {
 
     try {
       const followingRef = await api.followUser(user!.uid, followingUser.uid);
+
+      if (!user) throw new Error("You are not authenticated!");
+
       updateUser({
-        following: [followingRef, ...user!.following],
-        followingCount: user!.followingCount + 1,
+        following: [followingRef, ...user.following],
+        followingCount: user.followingCount + 1,
       });
       addSnackbar({
         message: `Now following ${followingUser.userName}`,
