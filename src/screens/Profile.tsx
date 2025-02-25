@@ -2,14 +2,14 @@ import { Component, For, Show } from "solid-js";
 import defaultPic from "../assets/favicon.ico";
 // components
 import MainLayout from "../components/layouts/Main";
+import { CenteredDataLoader } from "../components/utils/DataLoader";
 // context
 import { useAuthState } from "../context/auth";
 // hooks
 import useUsers from "../hooks/useUsers";
-import { CenteredDataLoader } from "../components/utils/DataLoader";
 
-const ProfileScreen: Component = () => { 
-  const { users, loading } = useUsers();
+const ProfileScreen: Component = () => {
+  const { users, loading, followUser } = useUsers();
   const authState = useAuthState()!;
 
   return (
@@ -56,6 +56,7 @@ const ProfileScreen: Component = () => {
                         </div>
                         <div class="flex-it w-32 mt-3 cursor-pointer">
                           <button
+                            onClick={() => followUser(user)}
                             type="button"
                             class="
                               disabled:cursor-not-allowed disabled:bg-gray-400
