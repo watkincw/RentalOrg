@@ -1,11 +1,14 @@
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 // db
 import { db } from "../db";
 // types
 import { User } from "../types/User";
 
-const getUsers = async () => {
-  const q = query(collection(db, "users"));
+const getUsers = async (loggedInUser: User) => {
+  const q = query(
+    collection(db, "users"),
+    where("uid", "!=", loggedInUser.uid)
+  );
   const querySnapshot = await getDocs(q);
 
   const users = querySnapshot.docs.map((doc) => {
