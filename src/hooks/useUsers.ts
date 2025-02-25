@@ -51,6 +51,18 @@ const useUsers = () => {
         following: [followingRef, ...user.following],
         followingCount: user.followingCount + 1,
       });
+
+      setUsers((_users) => {
+        const copy = [..._users];
+        const index = copy.findIndex((user) => user.uid === followingUser.uid);
+
+        if (index > -1) {
+          copy.splice(index, 1);
+        }
+
+        return copy;
+      });
+
       addSnackbar({
         message: `Now following ${followingUser.userName}`,
         type: "success",
