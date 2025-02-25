@@ -60,7 +60,10 @@ const getGlides = async (
 };
 
 // TODO: update to link renters to landlords
-const subscribeToGlides = (loggedInUser: User) => {
+const subscribeToGlides = (
+  loggedInUser: User,
+  getCallback: (g: Glide[]) => void
+) => {
   const _collection = collection(db, "glides");
 
   const constraints = [
@@ -70,7 +73,7 @@ const subscribeToGlides = (loggedInUser: User) => {
 
   const q = query(_collection, ...constraints);
 
-  return onSnapshot(q, async(querySnapshot) => {
+  return onSnapshot(q, async (querySnapshot) => {
     const glides = await Promise.all(
       querySnapshot.docs.reverse().map(async (doc) => {
         const glide = doc.data() as Glide;
@@ -80,7 +83,8 @@ const subscribeToGlides = (loggedInUser: User) => {
         return { ...glide, id: doc.id };
       })
     );
-    console.log(glides);
+
+    getCallback(glides);
   });
 };
 

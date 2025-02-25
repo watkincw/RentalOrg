@@ -15,12 +15,14 @@ type State = {
   };
   loading: boolean;
   lastGlideCurrentlyLoaded: QueryDocumentSnapshot | null;
+  newGlides: Glide[];
 };
 
 const createInitState = () => ({
   pages: {},
   loading: false,
   lastGlideCurrentlyLoaded: null,
+  newGlides: [],
 });
 
 const useGlides = () => {
@@ -74,7 +76,10 @@ const useGlides = () => {
       return;
     }
 
-    unsubscribe = api.subscribeToGlides(user!);
+    unsubscribe = api.subscribeToGlides(user!, (newGlides: Glide[]) => {
+      setStore("newGlides", newGlides);
+      console.log(store.newGlides);
+    });
   };
 
   const unsubscribeFromGlides = () => {
