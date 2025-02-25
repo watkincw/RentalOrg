@@ -10,7 +10,7 @@ const HomeScreen: Component = () => {
   const { store, addGlide, page, loadGlides } = useGlides();
 
   return (
-    <MainLayout>
+    <MainLayout pageTitle="Home">
       <Messenger onGlideAdded={addGlide} />
       <div class="h-px bg-gray-700 my-1" />
       <PaginatedGlides
