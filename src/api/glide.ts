@@ -70,8 +70,8 @@ const subscribeToGlides = (loggedInUser: User) => {
 
   const q = query(_collection, ...constraints);
 
-  onSnapshot(q, (querySnapshot) => {
-    console.log(querySnapshot);
+  return onSnapshot(q, (querySnapshot) => {
+    console.log(querySnapshot.docs);
   });
 };
 
