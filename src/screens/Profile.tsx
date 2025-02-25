@@ -8,7 +8,7 @@ import { useAuthState } from "../context/auth";
 import useUsers from "../hooks/useUsers";
 import { CenteredDataLoader } from "../components/utils/DataLoader";
 
-const ProfileScreen: Component = () => {
+const ProfileScreen: Component = () => { 
   const { users, loading } = useUsers();
   const authState = useAuthState()!;
 
