@@ -41,7 +41,7 @@ const ProfileScreen: Component = () => {
                   <div class="w-12 h-12 overflow-visible cursor-pointer transition duration-200 hover:opacity-80">
                     <img
                       class="rounded-full"
-                      src={user.avatar}></img>
+                      src={authState.user?.avatar || defaultPic}></img>
                   </div>
                 </div>
                 <article class="flex-it flex-grow flex-shrink">
