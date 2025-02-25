@@ -1,18 +1,14 @@
 import { Component, For, Show } from "solid-js";
 import defaultPic from "../assets/favicon.ico";
-// components/utils
-import Loader from "../components/utils/Loader";
-// components/layouts
+// components
 import MainLayout from "../components/layouts/Main";
 // context
 import { useAuthState } from "../context/auth";
-
-const users = [
-  { avatar: "https://thrangra.sirv.com/Avatar1.png", userName: "Felipe" },
-  { avatar: "https://thrangra.sirv.com/Avatar2.png", userName: "Anna" },
-];
+// hooks
+import useUsers from "../hooks/useUsers";
 
 const ProfileScreen: Component = () => {
+  const { users } = useUsers();
   const authState = useAuthState()!;
 
   return (
@@ -37,7 +33,7 @@ const ProfileScreen: Component = () => {
             </div>
           </div>
         </div>
-        <For each={users}>
+        <For each={users()}>
           {(user) => (
             <div class="flex-it p-4">
               <div class="flex-it flex-row">
