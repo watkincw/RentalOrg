@@ -6,6 +6,7 @@ import { QueryDocumentSnapshot } from "firebase/firestore";
 import { Glide } from "../types/Glide";
 // api
 import { getGlides } from "../api/glide";
+import { useAuthState } from "../context/auth";
 
 type State = {
   pages: {
@@ -22,6 +23,7 @@ const createInitState = () => ({
 });
 
 const useGlides = () => {
+  const { user } = useAuthState()!;
   const [page, setpage] = createSignal(1);
   const [store, setStore] = createStore<State>(createInitState());
 
@@ -33,14 +35,15 @@ const useGlides = () => {
     const _page = page();
 
     if (_page > 1 && !store.lastGlideCurrentlyLoaded) {
-    console.log("--- ALL DATA LOADED ---");
-      return
-    };
+      console.log("--- ALL DATA LOADED ---");
+      return;
+    }
 
     setStore("loading", true);
 
     try {
       const { glides, lastGlideCurrentlyLoaded } = await getGlides(
+        user!,
         store.lastGlideCurrentlyLoaded
       );
 

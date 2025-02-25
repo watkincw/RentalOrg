@@ -12,6 +12,7 @@ import {
   startAfter,
   Timestamp,
   QueryConstraint,
+  where,
 } from "firebase/firestore";
 // db
 import { db } from "../db";
@@ -20,9 +21,19 @@ import { Glide } from "../types/Glide";
 import { User } from "../types/User";
 
 const getGlides = async (
+  loggedInUser: User,
   lastGlideCurrentlyLoaded: QueryDocumentSnapshot | null
 ) => {
+  const _loggedInUsersGlides = doc(db, "users", loggedInUser.uid)
   const constraints: QueryConstraint[] = [orderBy("date", "desc"), limit(10)];
+
+  // only display glides of users you follow, and your own
+  if (loggedInUser.following.length > 0) {
+    constraints.push(where("user", "in", [...loggedInUser.following, _loggedInUsersGlides]));
+  }else{
+    constraints.push(where("user", "==", _loggedInUsersGlides));
+
+  }
 
   if (!!lastGlideCurrentlyLoaded) {
     constraints.push(startAfter(lastGlideCurrentlyLoaded));
