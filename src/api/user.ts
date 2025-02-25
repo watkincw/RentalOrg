@@ -20,10 +20,19 @@ const getUsers = async (loggedInUser: User) => {
   );
   const querySnapshot = await getDocs(q);
 
-  const users = querySnapshot.docs.map((doc) => {
-    const user = doc.data() as User;
-    return user;
-  });
+  const users = querySnapshot.docs
+    .map((doc) => {
+      const user = doc.data() as User;
+      return user;
+    })
+    .filter((user) => {
+      const userHasFollowers =
+        loggedInUser.following.filter((following) => following.id === user.uid)
+          .length > 0;
+          
+      console.log(!userHasFollowers);
+      return !userHasFollowers;
+    });
 
   return users;
 };
@@ -44,7 +53,5 @@ const followUser = async (followerUid: string, followingUid: string) => {
 
   return followingRef;
 };
-
-
 
 export { getUsers, followUser };
