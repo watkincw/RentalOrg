@@ -66,7 +66,10 @@ const AuthProvider: ParentComponent = (props) => {
   };
 
   const updateUser = (user: Partial<User>) => {
-    console.log("updateUser Called");
+    Object.keys(user).forEach((userKey) => {
+      const key = userKey as keyof User; // "uid" | "username"
+      setStore("user", key, user[key]!);
+    });
   };
 
   return (

@@ -36,6 +36,7 @@ const getUsers = async (loggedInUser: User) => {
   return users;
 };
 
+// TODO: update followUser to keep track of renterCount instead of followers
 const followUser = async (followerUid: string, followingUid: string) => {
   const followerRef = doc(db, "users", followerUid);
   const followingRef = doc(db, "users", followingUid);

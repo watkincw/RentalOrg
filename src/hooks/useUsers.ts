@@ -32,22 +32,26 @@ const useUsers = () => {
     }
   };
 
+  // TODO: update followUser to keep track of renterCount instead of followers
   const followUser = async (followingUser: User) => {
     setLoadingFollow(true);
-    updateUser({});
 
-    // try {
-    //   await api.followUser(user!.uid, followingUser.uid);
-    //   addSnackbar({
-    //     message: `Now following ${followingUser.userName}`,
-    //     type: "success",
-    //   });
-    // } catch (error) {
-    //   const message = (error as FirebaseError).message;
-    //   addSnackbar({ message, type: "error" });
-    // } finally {
-    //   setLoadingFollow(false);
-    // }
+    try {
+      const followingRef = await api.followUser(user!.uid, followingUser.uid);
+      updateUser({
+        following: [followingRef, ...user!.following],
+        followingCount: user!.followingCount + 1,
+      });
+      addSnackbar({
+        message: `Now following ${followingUser.userName}`,
+        type: "success",
+      });
+    } catch (error) {
+      const message = (error as FirebaseError).message;
+      addSnackbar({ message, type: "error" });
+    } finally {
+      setLoadingFollow(false);
+    }
   };
 
   return {
