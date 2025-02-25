@@ -12,31 +12,19 @@ export const links = [
     icon: () => <AiOutlineHome size={SIZE} />,
   },
   {
-    name: "Login",
-    href: "/auth/login",
-    icon: () => <CgProfile size={SIZE} />,
-  },
-  {
-    name: "Register",
-    href: "/auth/register",
-    icon: () => <CgProfile size={SIZE} />,
-  },
-  {
     name: "Profile",
     href: "/profile",
     icon: () => <CgProfile size={SIZE} />,
   },
   {
+    name: "Notification",
+    href: "/notification",
+    icon: () => <IoNotificationsCircleOutline size={SIZE} />,
+  },
+  {
     name: "More",
     href: "/more",
     icon: () => <CgMoreO size={SIZE} />,
-  },
-  {
-    name: "Notification",
-    href: "/notification",
-    icon: () => (
-      <IoNotificationsCircleOutline size={SIZE} />
-    ),
   },
   {
     name: "Discover",
