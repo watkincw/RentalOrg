@@ -16,6 +16,7 @@ const HomeScreen: Component = () => {
     loadGlides,
     subscribeToGlides,
     unsubscribeFromGlides,
+    displayNewGlides
   } = useGlides();
 
   onMount(() => {
@@ -33,7 +34,7 @@ const HomeScreen: Component = () => {
       <Show when={store.newGlides.length >= 3}>
         <Portal>
           <div class="fixed top-2 z-100 left-2/4 -translate-x-1/2">
-            <Button onClick={() => alert("Hi there")}>
+            <Button onClick={displayNewGlides}>
               <span>Display New Glides</span>
             </Button>
           </div>
