@@ -37,13 +37,16 @@ const PaginatedGlides: Component<Props> = (props) => {
     <>
       <For each={Array.from({ length: props.page() })}>
         {(_, i) => (
-          <For each={props.pages[i() + 1]?.glides}>
-            {(glide) => <GlidePost glide={glide} />}
-          </For>
+          <For each={props.pages[i() + 1]?.glides}>{(glide) => <GlidePost glide={glide} />}</For>
         )}
       </For>
       <Show when={props.loading}>
         <CenteredDataLoader />
+      </Show>
+      <Show when={!props.loading && props.pages[1]?.glides?.length === 0}>
+        <div class="flex-it">
+          <div class="bg-yellow-700 mt-6 p-6 rounded-lg mx-4">No Replies</div>
+        </div>
       </Show>
       <div ref={lastItemRef!}></div>
       <div class="h-96"></div>
