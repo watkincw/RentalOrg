@@ -4,7 +4,7 @@ import TrendsSidebar from "../sidebars/Trends";
 import MainSidebar from "../sidebars/Main";
 
 type Props = {
-  pageTitle: string;
+  pageTitle: string | JSXElement;
 };
 
 const MainLayout: ParentComponent<Props> = (props) => {
