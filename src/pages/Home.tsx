@@ -20,7 +20,7 @@ const HomePage: Component = () => {
   } = useGlides();
 
   onMount(() => {
-    subscribeToGlides();
+    subscribeToGlides(); 
   });
 
   onCleanup(() => {
