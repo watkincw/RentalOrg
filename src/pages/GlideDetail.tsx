@@ -1,5 +1,5 @@
 import { useParams } from "@solidjs/router";
-import { createResource, onMount, Show } from "solid-js";
+import { createEffect, createResource, onMount, Show } from "solid-js";
 import { FaSolidArrowLeft } from "solid-icons/fa";
 // components
 import MainLayout from "../components/layouts/Main";
@@ -18,9 +18,14 @@ const GlideDetailPage = () => {
   const [data] = createResource(() => getGlideById(params.id, params.uid));
   const { store, loadGlides } = useSubglides();
 
-  onMount(() => {
-    loadGlides();
+  createEffect(() => {
+    const glide = data();
+    if (!data.loading && !!glide && !!glide?.lookup) {
+      loadGlides(glide?.lookup);
+    }
   });
+
+ 
 
   const user = () => data()?.user as User;
 

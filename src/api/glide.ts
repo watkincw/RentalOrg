@@ -77,8 +77,8 @@ const getGlides = async (
   return { glides, lastGlideCurrentlyLoaded: _lastGlideCurrentlyLoaded };
 };
 
-const getSubgldies = async () => {
-  console.log("getSubglides");
+const getSubgldies = async (glideLookup: string) => {
+  console.log("getSubglides: " + glideLookup);
   return {
     glides: [],
     lastGlideCurrentlyLoaded: null,
