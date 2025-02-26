@@ -15,6 +15,8 @@ import {
   where,
   onSnapshot,
   setDoc,
+  updateDoc,
+  increment,
 } from "firebase/firestore";
 // db
 import { db } from "../db";
@@ -81,7 +83,8 @@ const getSubgldies = async (glideLookup: string) => {
   const ref = doc(db, glideLookup);
   const _collection = collection(ref, "glides");
 
-  const constraints = [orderBy("date", "desc"), limit(10)];
+  // if user is replying to a glide, orderBy("date", "asc")
+  const constraints = [orderBy("date", "asc"), limit(10)];
 
   const q = query(_collection, ...constraints);
 
@@ -155,6 +158,11 @@ const createGlide = async (
     subglidesCount: 0,
     date: Timestamp.now(),
   };
+
+  if (!!replyTo) {
+    const ref = doc(db, replyTo);
+    await updateDoc(ref, { subglidesCount: increment(1) });
+  }
 
   const added = await addDoc(glideCollection, glideToStore);
 
