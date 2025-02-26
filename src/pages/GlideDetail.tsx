@@ -10,10 +10,15 @@ import Messenger from "../components/utils/Messenger";
 import { getGlideById } from "../api/glide";
 // types
 import { User } from "../types/User";
+// hooks
+import useSubglides from "../hooks/useSubglides";
 
 const GlideDetailPage = () => {
   const params = useParams();
   const [data] = createResource(() => getGlideById(params.id, params.uid));
+  const { store } = useSubglides();
+
+  console.log(store);
 
   const user = () => data()?.user as User;
 
@@ -34,10 +39,8 @@ const GlideDetailPage = () => {
       >
         <GlidePost glide={data()!} />
         <div class="p-4 border-b-1 border-solid border-grey-700">
-          <div class="text-sm italis text-gray-300 mb-2 ml-4">
-            Replying to {user().userName}
-          </div>
-          <Messenger 
+          <div class="text-sm italis text-gray-300 mb-2 ml-4">Replying to {user().userName}</div>
+          <Messenger
             showAvatar={false}
             onGlideAdded={() => {}}
           />
