@@ -13,7 +13,7 @@ import useAuthenticate from "../hooks/useAuthenticate";
 // types
 import { RegisterForm } from "../types/Form";
 
-const RegisterScreen: Component = () => {
+const RegisterPage: Component = () => {
   const { authUser, loading } = useAuthenticate("register");
 
   const { handleInput, submitForm, validate, errors } = useForm<RegisterForm>({
@@ -156,4 +156,4 @@ const RegisterScreen: Component = () => {
   );
 };
 
-export default RegisterScreen;
+export default RegisterPage;

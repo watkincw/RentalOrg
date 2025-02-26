@@ -8,7 +8,7 @@ import PaginatedGlides from "../components/glides/PaginatedGlides";
 // hooks
 import useGlides from "../hooks/useGlides";
 
-const HomeScreen: Component = () => {
+const HomePage: Component = () => {
   const {
     store,
     addGlide,
@@ -50,4 +50,4 @@ const HomeScreen: Component = () => {
   );
 };
 
-export default HomeScreen;
+export default HomePage;

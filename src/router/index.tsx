@@ -8,8 +8,8 @@ import AuthLayout from "./layouts/AuthLayout";
 import AuthProvider from "../context/auth";
 import UIProvider from "../context/ui";
 // screens
-import HomeScreen from "../pages/Home";
-import ProfileScreen from "../pages/Profile";
+import HomePage from "../pages/Home";
+import ProfilePage from "../pages/Profile";
 // (lazy) screens
 const LoginScreen = lazy(() => import("../pages/Login"));
 const RegisterScreen = lazy(() => import("../pages/Register"));
@@ -43,11 +43,11 @@ const AppRoutes = () => {
       >
         <Route
           path="/"
-          component={HomeScreen}
+          component={HomePage}
         />
         <Route
           path="/profile"
-          component={ProfileScreen}
+          component={ProfilePage}
         />
       </Route>
       <Route

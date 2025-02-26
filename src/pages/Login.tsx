@@ -6,7 +6,7 @@ import useAuthenticate from "../hooks/useAuthenticate";
 // types
 import { AuthForm } from "../types/Form";
 
-const LoginScreen: Component = () => {
+const LoginPage: Component = () => {
   const { authUser, loading } = useAuthenticate("login");
   const { handleInput, submitForm, validate, errors } = useForm<AuthForm>({
     email: "",
@@ -81,4 +81,4 @@ const LoginScreen: Component = () => {
   );
 };
 
-export default LoginScreen;
+export default LoginPage;

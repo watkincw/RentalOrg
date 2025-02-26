@@ -8,7 +8,7 @@ import { useAuthState } from "../context/auth";
 // hooks
 import useUsers from "../hooks/useUsers";
 
-const ProfileScreen: Component = () => {
+const ProfilePage: Component = () => {
   const { users, loading, followUser, loadingFollow } = useUsers();
   const authState = useAuthState()!;
 
@@ -95,4 +95,4 @@ const ProfileScreen: Component = () => {
   );
 };
 
-export default ProfileScreen;
+export default ProfilePage;
