@@ -35,7 +35,6 @@ const useGlides = () => {
     const _page = page();
 
     if (_page > 1 && !store.lastGlideCurrentlyLoaded) {
-      console.log("--- ALL DATA LOADED ---");
       return;
     }
 
@@ -73,7 +72,6 @@ const useGlides = () => {
 
     unsubscribe = api.subscribeToGlides(user!, (newGlides: Glide[]) => {
       setStore("newGlides", newGlides);
-      console.log(store.newGlides);
     });
   };
 

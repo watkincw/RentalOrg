@@ -146,8 +146,6 @@ const useForm = <T extends Form>(initialForm: T) => {
           );
         }
       }
-
-      // console.log(JSON.stringify(errors));
     };
 
   return {

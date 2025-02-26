@@ -27,7 +27,6 @@ const RegisterPage: Component = () => {
 
   const onFormSubmit = (form: RegisterForm) => {
     authUser(form);
-    console.log(form);
   };
 
   return (
