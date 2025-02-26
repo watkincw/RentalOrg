@@ -3,6 +3,7 @@ import { AiOutlineMessage } from "solid-icons/ai";
 import { FaRegularHeart } from "solid-icons/fa";
 import { FiTrash } from "solid-icons/fi";
 import { useNavigate } from "@solidjs/router";
+import moment from "moment";
 import defaultPic from "../../assets/favicon.ico";
 // types
 import { Glide } from "../../types/Glide";
@@ -39,7 +40,7 @@ const GlidePost: Component<Props> = (props) => {
               <div>
                 <span class="font-bold">{user().userName}</span>
                 <span class="mx-2">&#8226;</span>
-                <span class="text-gray-400">2h</span>
+                <span class="text-gray-400">{moment(glide().date.toDate().toISOString()).fromNow()}</span>
               </div>
               <div class="text-gray-400 cursor-pointer transition hover:text-red-400">
                 <FiTrash size={16} />
