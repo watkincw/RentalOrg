@@ -7,9 +7,10 @@ import AuthLayout from "./layouts/AuthLayout";
 // context
 import AuthProvider from "../context/auth";
 import UIProvider from "../context/ui";
-// screens
+// pages
 import HomePage from "../pages/Home";
 import ProfilePage from "../pages/Profile";
+import GlideDetailPage from "../pages/GlideDetail";
 // (lazy) screens
 const LoginScreen = lazy(() => import("../pages/Login"));
 const RegisterScreen = lazy(() => import("../pages/Register"));
@@ -48,6 +49,10 @@ const AppRoutes = () => {
         <Route
           path="/profile"
           component={ProfilePage}
+        />
+        <Route
+          path="/:uid/glide/:id"
+          component={GlideDetailPage}
         />
       </Route>
       <Route
