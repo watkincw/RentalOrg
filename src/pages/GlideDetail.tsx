@@ -4,20 +4,22 @@ import { FaSolidArrowLeft } from "solid-icons/fa";
 // components
 import MainLayout from "../components/layouts/Main";
 import GlidePost from "../components/glides/GlidePost";
-import { CenteredDataLoader } from "../components/utils/DataLoader";
 import Messenger from "../components/utils/Messenger";
+import PaginatedGlides from "../components/glides/PaginatedGlides";
+import { CenteredDataLoader } from "../components/utils/DataLoader";
 // api
 import { getGlideById } from "../api/glide";
 // types
 import { User } from "../types/User";
+import { Glide } from "../types/Glide";
 // hooks
 import useSubglides from "../hooks/useSubglides";
-import PaginatedGlides from "../components/glides/PaginatedGlides";
 
 const GlideDetailPage = () => {
   const params = useParams();
-  const [data] = createResource(() => getGlideById(params.id, params.uid));
+  const [data, { mutate }] = createResource(() => getGlideById(params.id, params.uid));
   const { store, page, loadGlides } = useSubglides();
+  const user = () => data()?.user as User;
 
   createEffect(() => {
     const glide = data();
@@ -26,7 +28,14 @@ const GlideDetailPage = () => {
     }
   });
 
-  const user = () => data()?.user as User;
+  const onGlideAdded = (newGlide?: Glide) => {
+    const glide = data()!;
+
+    mutate({
+      ...glide,
+      subglidesCount: glide.subglidesCount + 1,
+    });
+  };
 
   return (
     <MainLayout
@@ -49,7 +58,7 @@ const GlideDetailPage = () => {
           <Messenger
             replyTo={data()?.lookup}
             showAvatar={false}
-            onGlideAdded={() => {}}
+            onGlideAdded={onGlideAdded}
           />
         </div>
         <PaginatedGlides
