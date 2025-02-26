@@ -26,7 +26,10 @@ const useSubglides = () => {
     setStore("loading", true);
 
     try {
-      const { glides, lastGlideCurrentlyLoaded } = await api.getSubgldies(glideLookup);
+      const { glides, lastGlideCurrentlyLoaded } = await api.getSubgldies(
+        glideLookup,
+        store.lastGlideCurrentlyLoaded
+      );
 
       if (glides.length > 0) {
         setStore(
@@ -58,7 +61,23 @@ const useSubglides = () => {
           store.pages[page] = { glides: [] };
         }
 
-        store.pages[page].glides.push({ ...glide });
+        store.pages[page].glides.unshift({ ...glide });
+      })
+    );
+  };
+
+  const addGlide = (glide: Glide | undefined) => {
+    if (!glide) return;
+
+    const page = 1;
+
+    setStore(
+      produce((store) => {
+        if (!store.pages[page]) {
+          store.pages[page] = { glides: [] };
+        }
+
+        store.pages[page].glides.unshift({ ...glide });
       })
     );
   };

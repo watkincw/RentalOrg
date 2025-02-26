@@ -77,7 +77,10 @@ const GlideDetailPage = () => {
           page={page}
           pages={store.pages}
           loading={store.loading}
-          loadMoreGlides={() => Promise.resolve()}
+          loadMoreGlides={() => {
+            const lookup = data()?.lookup!;
+            return loadGlides(lookup);
+          }}
         />
       </Show>
     </MainLayout>
