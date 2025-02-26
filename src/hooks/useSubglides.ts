@@ -14,7 +14,7 @@ const defaultState = () => ({
 
 const useSubglides = () => {
   const [store, setStore] = createStore<UseGlideState>(defaultState());
-  const [page, setpage] = createSignal(1);
+  const [page, setPage] = createSignal(1);
 
   const loadGlides = async (glideLookup: string) => {
     const _page = page();
@@ -35,7 +35,7 @@ const useSubglides = () => {
           })
         );
 
-        setpage(_page + 1);
+        setPage(_page + 1);
       }
 
       setStore("lastGlideCurrentlyLoaded", lastGlideCurrentlyLoaded);
@@ -63,7 +63,23 @@ const useSubglides = () => {
     );
   };
 
-  return { store, loadGlides, page, addSubglide };
+  const resetPagination = () => {
+    setStore(
+      produce((store) => {
+        for (let i = 1; i <= page(); i++) {
+          store.pages[i] = {
+            glides: [],
+          };
+        }
+
+        store.lastGlideCurrentlyLoaded = null;
+      })
+    );
+
+    setPage(1);
+  };
+
+  return { store, loadGlides, page, addSubglide, resetPagination };
 };
 
 export default useSubglides;
