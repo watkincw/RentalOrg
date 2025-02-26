@@ -1,7 +1,8 @@
-import { Component } from "solid-js";
+import { Component, mergeProps, Show } from "solid-js";
 import { FaRegularImage } from "solid-icons/fa";
-// assets
 import defaultPic from "../../assets/favicon.ico";
+// components
+import Button from "./Button";
 // context
 import { useAuthState } from "../../context/auth";
 // hooks
@@ -9,13 +10,14 @@ import useMessenger from "../../hooks/useMessenger";
 // types
 import { GliderInputEvent } from "../../types/Form";
 import { Glide } from "../../types/Glide";
-import Button from "./Button";
 
 type Props = {
   onGlideAdded: (g: Glide | undefined) => void;
+  showAvatar?: boolean;
 };
 
-const Messenger: Component<Props> = (props) => {
+const Messenger: Component<Props> = (initialProps) => {
+  const props = mergeProps({ showAvatar: true, initialProps });
   const { user } = useAuthState()!;
   const { handleInput, handleSubmit, form, loading } = useMessenger();
 
@@ -32,14 +34,16 @@ const Messenger: Component<Props> = (props) => {
 
   return (
     <div class="flex-it py-1 px-4 flex-row">
-      <div class="flex-it mr-4">
-        <div class="w-12 h-12 overflow-visible cursor-pointer transition duration-200 hover:opacity-80">
-          <img
-            class="rounded-full"
-            src={user?.avatar || defaultPic}
-          ></img>
+      <Show when={props.showAvatar}>
+        <div class="flex-it mr-4">
+          <div class="w-12 h-12 overflow-visible cursor-pointer transition duration-200 hover:opacity-80">
+            <img
+              class="rounded-full"
+              src={user?.avatar || defaultPic}
+            ></img>
+          </div>
         </div>
-      </div>
+      </Show>
       <div class="flex-it flex-grow">
         <div class="flex-it">
           <textarea
@@ -73,7 +77,7 @@ const Messenger: Component<Props> = (props) => {
               disabled={sendDisabled()}
               onClick={async () => {
                 const glide = await handleSubmit();
-                props.onGlideAdded(glide);
+                initialProps.onGlideAdded(glide);
               }}
             >
               <span>Glide It</span>

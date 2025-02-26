@@ -5,12 +5,17 @@ import { FaSolidArrowLeft } from "solid-icons/fa";
 import MainLayout from "../components/layouts/Main";
 import GlidePost from "../components/glides/GlidePost";
 import { CenteredDataLoader } from "../components/utils/DataLoader";
+import Messenger from "../components/utils/Messenger";
 // api
 import { getGlideById } from "../api/glide";
+// types
+import { User } from "../types/User";
 
-const GlideDetail = () => {
+const GlideDetailPage = () => {
   const params = useParams();
   const [data] = createResource(() => getGlideById(params.id, params.uid));
+
+  const user = () => data()?.user as User;
 
   return (
     <MainLayout
@@ -28,9 +33,18 @@ const GlideDetail = () => {
         fallback={<CenteredDataLoader />}
       >
         <GlidePost glide={data()!} />
+        <div class="p-4 border-b-1 border-solid border-grey-700">
+          <div class="text-sm italis text-gray-300 mb-2 ml-4">
+            Replying to {user().userName}
+          </div>
+          <Messenger 
+            showAvatar={false}
+            onGlideAdded={() => {}}
+          />
+        </div>
       </Show>
     </MainLayout>
   );
 };
 
-export default GlideDetail;
+export default GlideDetailPage;
