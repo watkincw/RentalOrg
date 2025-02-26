@@ -14,6 +14,7 @@ import {
   QueryConstraint,
   where,
   onSnapshot,
+  setDoc,
 } from "firebase/firestore";
 // db
 import { db } from "../db";
@@ -30,9 +31,7 @@ const getGlides = async (
 
   // only display glides of users you follow, and your own
   if (loggedInUser.following.length > 0) {
-    constraints.push(
-      where("user", "in", [...loggedInUser.following, _loggedInUsersGlides])
-    );
+    constraints.push(where("user", "in", [...loggedInUser.following, _loggedInUsersGlides]));
   } else {
     constraints.push(where("user", "==", _loggedInUsersGlides));
   }
@@ -52,7 +51,7 @@ const getGlides = async (
       const userSnapshot = await getDoc(glide.user as DocumentReference);
       glide.user = userSnapshot.data() as User;
 
-      return { ...glide, id: doc.id };
+      return { ...glide, id: doc.id, lookup: doc.ref.path };
     })
   );
 
@@ -60,10 +59,7 @@ const getGlides = async (
 };
 
 // TODO: update to link renters to landlords
-const subscribeToGlides = (
-  loggedInUser: User,
-  getCallback: (g: Glide[]) => void
-) => {
+const subscribeToGlides = (loggedInUser: User, getCallback: (g: Glide[]) => void) => {
   const _collection = collection(db, "glides");
 
   const constraints = [
@@ -88,10 +84,7 @@ const subscribeToGlides = (
   });
 };
 
-const createGlide = async (form: {
-  content: string;
-  uid: string;
-}): Promise<Glide> => {
+const createGlide = async (form: { content: string; uid: string }): Promise<Glide> => {
   const userRef = doc(db, "users", form.uid);
 
   const glideToStore = {
@@ -105,7 +98,10 @@ const createGlide = async (form: {
   const glideCollection = collection(db, "glides");
   const added = await addDoc(glideCollection, glideToStore);
 
-  return { ...glideToStore, id: added.id };
+  const userGlideRef = doc(userRef, "glides", added.id);
+  await setDoc(userGlideRef, { lookup: added });
+
+  return { ...glideToStore, id: added.id, lookup: added.path };
 };
 
 export { createGlide, getGlides, subscribeToGlides };
