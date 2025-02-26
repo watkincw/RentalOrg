@@ -25,8 +25,6 @@ const GlideDetailPage = () => {
     }
   });
 
- 
-
   const user = () => data()?.user as User;
 
   return (
@@ -48,6 +46,7 @@ const GlideDetailPage = () => {
         <div class="p-4 border-b-1 border-solid border-grey-700">
           <div class="text-sm italis text-gray-300 mb-2 ml-4">Replying to {user().userName}</div>
           <Messenger
+            replyTo={data()?.lookup}
             showAvatar={false}
             onGlideAdded={() => {}}
           />

@@ -128,7 +128,10 @@ const subscribeToGlides = (loggedInUser: User, getCallback: (g: Glide[]) => void
   });
 };
 
-const createGlide = async (form: { content: string; uid: string }): Promise<Glide> => {
+const createGlide = async (
+  form: { content: string; uid: string },
+  replyTo?: string
+): Promise<Glide> => {
   const userRef = doc(db, "users", form.uid);
 
   const glideToStore = {

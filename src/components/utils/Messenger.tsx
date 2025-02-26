@@ -14,12 +14,13 @@ import { Glide } from "../../types/Glide";
 type Props = {
   onGlideAdded: (g: Glide | undefined) => void;
   showAvatar?: boolean;
+  replyTo?: string;
 };
 
 const Messenger: Component<Props> = (initialProps) => {
-  const props = mergeProps({ showAvatar: true, initialProps });
+  const props = mergeProps({ showAvatar: true }, initialProps);
   const { user } = useAuthState()!;
-  const { handleInput, handleSubmit, form, loading } = useMessenger();
+  const { handleInput, handleSubmit, form, loading } = useMessenger(props.replyTo);
 
   const sendDisabled = () => loading() || form.content === "";
 

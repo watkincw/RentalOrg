@@ -9,7 +9,7 @@ import { useUIDispatch } from "../context/ui";
 // api
 import { createGlide } from "../api/glide";
 
-const useMessenger = () => {
+const useMessenger = (replyTo?: string) => {
   const { isAuthenticated, user } = useAuthState()!;
   const { addSnackbar } = useUIDispatch();
   const [loading, setLoading] = createSignal(false);
@@ -36,7 +36,7 @@ const useMessenger = () => {
     };
 
     try {
-      const newGlide = await createGlide(glide);
+      const newGlide = await createGlide(glide, replyTo);
       newGlide.user = {
         userName: user!.userName,
         avatar: user!.avatar,
