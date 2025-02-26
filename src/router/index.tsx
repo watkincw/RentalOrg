@@ -8,11 +8,11 @@ import AuthLayout from "./layouts/AuthLayout";
 import AuthProvider from "../context/auth";
 import UIProvider from "../context/ui";
 // screens
-import HomeScreen from "../screens/Home";
-import ProfileScreen from "../screens/Profile";
+import HomeScreen from "../pages/Home";
+import ProfileScreen from "../pages/Profile";
 // (lazy) screens
-const LoginScreen = lazy(() => import("../screens/Login"));
-const RegisterScreen = lazy(() => import("../screens/Register"));
+const LoginScreen = lazy(() => import("../pages/Login"));
+const RegisterScreen = lazy(() => import("../pages/Register"));
 
 const ScreenExt: ParentComponent = (props) => {
   return (
