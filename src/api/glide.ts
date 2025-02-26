@@ -19,8 +19,19 @@ import {
 // db
 import { db } from "../db";
 // types
-import { Glide } from "../types/Glide";
+import { Glide, UserGlide } from "../types/Glide";
 import { User } from "../types/User";
+
+const getGlideById = async (id: string, uid: string) => {
+  const userDocRef = doc(db, "users", uid);
+  const userGlideRef = doc(userDocRef, "glides", id);
+
+  const userGlideSnap = await getDoc(userGlideRef);
+
+  const userGlide = userGlideSnap.data() as UserGlide;
+
+  console.log(userGlide.lookup);
+};
 
 const getGlides = async (
   loggedInUser: User,
@@ -104,4 +115,4 @@ const createGlide = async (form: { content: string; uid: string }): Promise<Glid
   return { ...glideToStore, id: added.id, lookup: added.path };
 };
 
-export { createGlide, getGlides, subscribeToGlides };
+export { createGlide, getGlides, subscribeToGlides, getGlideById };
