@@ -1,4 +1,8 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 // types
 import { AuthForm, RegisterForm } from "../types/Form";
@@ -9,7 +13,11 @@ import { db, firebaseAuth } from "../db";
 export type AuthType = "register" | "login";
 
 const register = async (form: RegisterForm) => {
-  const { user: registeredUser } = await createUserWithEmailAndPassword(firebaseAuth, form.email, form.password);
+  const { user: registeredUser } = await createUserWithEmailAndPassword(
+    firebaseAuth,
+    form.email,
+    form.password
+  );
 
   const user: User = {
     uid: registeredUser.uid,
@@ -28,7 +36,11 @@ const register = async (form: RegisterForm) => {
 };
 
 const login = async (loginForm: AuthForm) => {
-  const { user } = await signInWithEmailAndPassword(firebaseAuth, loginForm.email, loginForm.password);
+  const { user } = await signInWithEmailAndPassword(
+    firebaseAuth,
+    loginForm.email,
+    loginForm.password
+  );
   return user;
 };
 

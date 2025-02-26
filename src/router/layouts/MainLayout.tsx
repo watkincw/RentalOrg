@@ -20,9 +20,9 @@ const MainLayout: Component<ParentProps> = (props) => {
 
   return (
     <>
-    {/* <PersistenceProvider> */}
+      {/* <PersistenceProvider> */}
       {props.children}
-    {/* </PersistenceProvider> */}
+      {/* </PersistenceProvider> */}
     </>
   );
 };

@@ -39,7 +39,8 @@ const AppRoutes = () => {
     <>
       <Route
         path="/"
-        component={withScreenExt(MainLayout)}>
+        component={withScreenExt(MainLayout)}
+      >
         <Route
           path="/"
           component={HomeScreen}
@@ -51,7 +52,8 @@ const AppRoutes = () => {
       </Route>
       <Route
         path="/auth"
-        component={withScreenExt(AuthLayout)}>
+        component={withScreenExt(AuthLayout)}
+      >
         <Route
           path="/login"
           component={LoginScreen}

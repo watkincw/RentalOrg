@@ -16,7 +16,7 @@ const HomeScreen: Component = () => {
     loadGlides,
     subscribeToGlides,
     unsubscribeFromGlides,
-    displayNewGlides
+    displayNewGlides,
   } = useGlides();
 
   onMount(() => {

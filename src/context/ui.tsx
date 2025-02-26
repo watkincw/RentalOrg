@@ -57,7 +57,8 @@ const UIProvider: ParentComponent = (props) => {
         value={{
           addSnackbar,
           removeSnackbar,
-        }}>
+        }}
+      >
         {props.children}
       </UIDispatchContext.Provider>
     </UIStateContext.Provider>

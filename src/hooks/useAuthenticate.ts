@@ -1,5 +1,5 @@
-import { FirebaseError } from "firebase/app";
 import { createSignal } from "solid-js";
+import { FirebaseError } from "firebase/app";
 // api
 import { authenticate, AuthType } from "../api/auth";
 // types

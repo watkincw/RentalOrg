@@ -1,3 +1,4 @@
+// api
 import { logout } from "../api/auth";
 
 const useLogout = () => {

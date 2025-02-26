@@ -19,7 +19,8 @@ const ProfileScreen: Component = () => {
           <div class="flex-it flex-row items-center px-4">
             <img
               class="rounded-full h-24 mr-4"
-              src={authState.user?.avatar || defaultPic}></img>
+              src={authState.user?.avatar || defaultPic}
+            ></img>
             <div class="mr-6">
               <div class="text-2xl font-bold">{authState.user?.fullName}</div>
               <div class="text-gray-400">{authState.user?.userName}</div>
@@ -36,7 +37,8 @@ const ProfileScreen: Component = () => {
         </div>
         <Show
           when={!loading()}
-          fallback={<CenteredDataLoader />}>
+          fallback={<CenteredDataLoader />}
+        >
           <Show
             when={users().length > 0}
             fallback={
@@ -45,7 +47,8 @@ const ProfileScreen: Component = () => {
                   You're already following all users on the planet ... ...
                 </div>
               </div>
-            }>
+            }
+          >
             <For each={users()}>
               {(user) => (
                 <div class="flex-it p-4">
@@ -54,7 +57,8 @@ const ProfileScreen: Component = () => {
                       <div class="w-12 h-12 overflow-visible cursor-pointer transition duration-200 hover:opacity-80">
                         <img
                           class="rounded-full"
-                          src={authState.user?.avatar || defaultPic}></img>
+                          src={authState.user?.avatar || defaultPic}
+                        ></img>
                       </div>
                     </div>
                     <article class="flex-it flex-grow flex-shrink">
@@ -70,7 +74,8 @@ const ProfileScreen: Component = () => {
                               type="button"
                               class="
                               disabled:cursor-not-allowed disabled:bg-gray-400
-                              bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-full flex-it transition duration-200">
+                              bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-full flex-it transition duration-200"
+                            >
                               <div class="flex-it flex-row text-sm font-bold text-white items-start justify-center">
                                 <span>Follow</span>
                               </div>

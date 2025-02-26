@@ -31,7 +31,8 @@ const MainSidebar: Component = () => {
                     {(link) => (
                       <A
                         class="flex-it items-start flex-grow w-full"
-                        href={link.href}>
+                        href={link.href}
+                      >
                         <div class="p-3 flex-row justify-center items-center flex-it rounded-3xl hover:bg-gray-800 hover:rounded-3xl transition duration-200">
                           <div class="flex-it">{link.icon()}</div>
                           <div class="mx-4 text-2xl truncate xl:block hidden">
@@ -49,7 +50,8 @@ const MainSidebar: Component = () => {
                   <div class="flex-it flex-row text-xl font-bold text-white items-start justify-center truncate duration-200">
                     <Show
                       when={pageSize.isXl()}
-                      fallback={<RiDesignQuillPenLine />}>
+                      fallback={<RiDesignQuillPenLine />}
+                    >
                       <div>Glide It</div>
                     </Show>
                   </div>
@@ -66,7 +68,8 @@ const MainSidebar: Component = () => {
                       <div class="w-10 h-10 overflow-visible">
                         <img
                           class="rounded-full"
-                          src={user?.avatar || defaultPic}></img>
+                          src={user?.avatar || defaultPic}
+                        ></img>
                       </div>
                     </div>
                     <div class="flex-it xl:flex hidden flex-grow flex-row justify-between items-center">

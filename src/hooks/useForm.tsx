@@ -35,13 +35,14 @@ export const FormError: ParentComponent = (props) => {
   );
 };
 
-export const compareWith: Validator = (element: HTMLInputElement, fieldName: string) => (form: Form) => {
-  if (element.value.length === 0) return "";
+export const compareWith: Validator =
+  (element: HTMLInputElement, fieldName: string) => (form: Form) => {
+    if (element.value.length === 0) return "";
 
-  const compareToValue = form[fieldName];
+    const compareToValue = form[fieldName];
 
-  return element.value !== compareToValue ? `Passwords to not match` : "";
-};
+    return element.value !== compareToValue ? `Passwords to not match` : "";
+  };
 
 export const requiredValidator: Validator = (element: HTMLInputElement) => (form: Form) => {
   return element.value.length === 0 ? `${niceName(element.name)} is required` : "";
@@ -74,7 +75,9 @@ export const firstLetterUppercase = (element: HTMLInputElement) => (form: Form) 
     return "";
   }
 
-  return value[0] !== value[0].toUpperCase() ? `${niceName(element.name)} first letter should be uppercased` : "";
+  return value[0] !== value[0].toUpperCase()
+    ? `${niceName(element.name)} first letter should be uppercased`
+    : "";
 };
 
 const useForm = <T extends Form>(initialForm: T) => {

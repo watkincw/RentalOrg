@@ -38,10 +38,7 @@ const useUsers = () => {
 
     try {
       if (!user) throw new Error("You are not authenticated!");
-      if (
-        user.following.filter((following) => following.id === followingUser.uid)
-          .length > 0
-      ) {
+      if (user.following.filter((following) => following.id === followingUser.uid).length > 0) {
         throw new Error("You're already following that user.");
       }
 

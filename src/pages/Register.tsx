@@ -84,7 +84,9 @@ const RegisterScreen: Component = () => {
                   </div>
 
                   <div class="flex-it py-2">
-                    <label class="block text-sm font-medium text-gray-700">Profile Picture (optional)</label>
+                    <label class="block text-sm font-medium text-gray-700">
+                      Profile Picture (optional)
+                    </label>
                     <input
                       onInput={handleInput}
                       type="text"
@@ -111,7 +113,10 @@ const RegisterScreen: Component = () => {
                     <label class="block text-sm font-medium text-gray-700">Confirm Password</label>
                     <input
                       onInput={handleInput}
-                      use:validate={[requiredValidator, (element) => compareWith(element, "password")]}
+                      use:validate={[
+                        requiredValidator,
+                        (element) => compareWith(element, "password"),
+                      ]}
                       type="password"
                       name="passwordConfirmation"
                       id="passwordConfirmation"
@@ -125,7 +130,8 @@ const RegisterScreen: Component = () => {
                 Already Registered?{" "}
                 <A
                   class="underline"
-                  href="/auth/login">
+                  href="/auth/login"
+                >
                   Go to Login
                 </A>
               </div>
@@ -137,7 +143,8 @@ const RegisterScreen: Component = () => {
                   class="
                   bg-blue-400 hover:bg-blue-500 focus:ring-0
                   disabled:cursor-not-allowed disabled:bg-gray-400
-                  inline-flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-offset-2">
+                  inline-flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-offset-2"
+                >
                   Register
                 </button>
               </div>

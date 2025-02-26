@@ -36,18 +36,21 @@ export const Snackbar: Component<Props> = (initialProps) => {
         "bg-blue-400": props.type === "success",
         "bg-red-700": props.type === "error",
         "bg-yellow-600": props.type === "warning",
-      }}>
+      }}
+    >
       <div class="flex-it flex-row-reverse p-1">
         <button
           onclick={props.onClose}
-          class="text-xl rounded-full">
+          class="text-xl rounded-full"
+        >
           <IoCloseCircle />
         </button>
       </div>
       <div class="flex-it px-2 pb-3">{props.message}</div>
       <div
         style={{ width: `${completed()}%` }}
-        class="bg-black opacity-40 text-right h-2"></div>
+        class="bg-black opacity-40 text-right h-2"
+      ></div>
     </div>
   );
 };

@@ -1,13 +1,7 @@
-import { onAuthStateChanged } from "firebase/auth";
-import {
-  createContext,
-  onMount,
-  ParentComponent,
-  Show,
-  useContext,
-} from "solid-js";
+import { createContext, onMount, ParentComponent, Show, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 import { useLocation, useNavigate } from "@solidjs/router";
+import { onAuthStateChanged } from "firebase/auth";
 // components/utils
 import Loader from "../components/utils/Loader";
 // db
@@ -77,7 +71,8 @@ const AuthProvider: ParentComponent = (props) => {
       <AuthDispatchContext.Provider value={{ updateUser }}>
         <Show
           when={store.loading}
-          fallback={props.children}>
+          fallback={props.children}
+        >
           <Loader size={100} />
         </Show>
       </AuthDispatchContext.Provider>

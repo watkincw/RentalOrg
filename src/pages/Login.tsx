@@ -56,7 +56,8 @@ const LoginScreen: Component = () => {
                 No Account Yet?{" "}
                 <A
                   class="underline"
-                  href="/auth/register">
+                  href="/auth/register"
+                >
                   Create a new account
                 </A>
               </div>
@@ -67,7 +68,8 @@ const LoginScreen: Component = () => {
                   type="button"
                   class="
                   bg-blue-400 hover:bg-blue-500
-                  inline-flex focus:ring-0 disabled:cursor-not-allowed disabled:bg-gray-400 justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white shadow-sm  focus:outline-none focus:ring-offset-2">
+                  inline-flex focus:ring-0 disabled:cursor-not-allowed disabled:bg-gray-400 justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white shadow-sm  focus:outline-none focus:ring-offset-2"
+                >
                   Login
                 </button>
               </div>

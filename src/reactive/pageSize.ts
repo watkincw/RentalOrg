@@ -1,8 +1,4 @@
-import {
-  createRoot,
-  createSignal,
-  onMount,
-} from "solid-js";
+import { createRoot, createSignal, onMount } from "solid-js";
 
 const getClientSize = () => ({
   height: document.body.clientHeight,
