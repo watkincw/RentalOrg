@@ -77,6 +77,14 @@ const getGlides = async (
   return { glides, lastGlideCurrentlyLoaded: _lastGlideCurrentlyLoaded };
 };
 
+const getSubgldies = async () => {
+  console.log("getSubglides");
+  return {
+    glides: [],
+    lastGlideCurrentlyLoaded: null,
+  };
+};
+
 // TODO: update to link renters to landlords
 const subscribeToGlides = (loggedInUser: User, getCallback: (g: Glide[]) => void) => {
   const _collection = collection(db, "glides");
@@ -123,4 +131,4 @@ const createGlide = async (form: { content: string; uid: string }): Promise<Glid
   return { ...glideToStore, id: added.id, lookup: added.path };
 };
 
-export { createGlide, getGlides, subscribeToGlides, getGlideById };
+export { createGlide, getGlides, subscribeToGlides, getGlideById, getSubgldies };

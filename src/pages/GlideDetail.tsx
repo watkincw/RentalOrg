@@ -16,9 +16,11 @@ import useSubglides from "../hooks/useSubglides";
 const GlideDetailPage = () => {
   const params = useParams();
   const [data] = createResource(() => getGlideById(params.id, params.uid));
-  const { store } = useSubglides();
+  const { store, loadGlides } = useSubglides();
 
-  console.log(store);
+  onMount(() => {
+    loadGlides();
+  });
 
   const user = () => data()?.user as User;
 
