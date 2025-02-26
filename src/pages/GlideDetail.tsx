@@ -12,11 +12,12 @@ import { getGlideById } from "../api/glide";
 import { User } from "../types/User";
 // hooks
 import useSubglides from "../hooks/useSubglides";
+import PaginatedGlides from "../components/glides/PaginatedGlides";
 
 const GlideDetailPage = () => {
   const params = useParams();
   const [data] = createResource(() => getGlideById(params.id, params.uid));
-  const { store, loadGlides } = useSubglides();
+  const { store, page, loadGlides } = useSubglides();
 
   createEffect(() => {
     const glide = data();
@@ -51,6 +52,12 @@ const GlideDetailPage = () => {
             onGlideAdded={() => {}}
           />
         </div>
+        <PaginatedGlides
+          page={page}
+          pages={store.pages}
+          loading={store.loading}
+          loadMoreGlides={() => Promise.resolve()}
+        />
       </Show>
     </MainLayout>
   );

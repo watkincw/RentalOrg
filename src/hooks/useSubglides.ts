@@ -48,7 +48,7 @@ const useSubglides = () => {
     }
   };
 
-  return { store, loadGlides };
+  return { store, loadGlides, page };
 };
 
 export default useSubglides;
