@@ -84,19 +84,21 @@ const getSubgldies = async (glideLookup: string) => {
   const _collection = collection(ref, "glides");
 
   // if user is replying to a glide, orderBy("date", "asc")
-  const constraints = [orderBy("date", "asc"), limit(10)];
+  const constraints = [orderBy("date", "desc"), limit(10)];
 
   const q = query(_collection, ...constraints);
 
   const qSnapshot = await getDocs(q);
   const glides = await Promise.all(
-    qSnapshot.docs.map(async (doc) => {
-      const glide = doc.data() as Glide;
-      const userSnap = await getDoc(glide.user as DocumentReference);
-      glide.user = userSnap.data() as User;
+    qSnapshot.docs
+      .map(async (doc) => {
+        const glide = doc.data() as Glide;
+        const userSnap = await getDoc(glide.user as DocumentReference);
+        glide.user = userSnap.data() as User;
 
-      return { ...glide, id: doc.id, lookup: doc.ref.path };
-    })
+        return { ...glide, id: doc.id, lookup: doc.ref.path };
+      })
+      .reverse()
   );
 
   return {

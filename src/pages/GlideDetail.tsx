@@ -18,7 +18,7 @@ import useSubglides from "../hooks/useSubglides";
 const GlideDetailPage = () => {
   const params = useParams();
   const [data, { mutate }] = createResource(() => getGlideById(params.id, params.uid));
-  const { store, page, loadGlides } = useSubglides();
+  const { store, page, loadGlides, addSubglide } = useSubglides();
   const user = () => data()?.user as User;
 
   createEffect(() => {
@@ -35,6 +35,8 @@ const GlideDetailPage = () => {
       ...glide,
       subglidesCount: glide.subglidesCount + 1,
     });
+
+    addSubglide(newGlide);
   };
 
   return (
