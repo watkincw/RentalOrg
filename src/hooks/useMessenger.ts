@@ -9,9 +9,22 @@ import { useUIDispatch } from "../context/ui";
 // api
 import { createGlide } from "../api/glide";
 
+type UploadImage = {
+  buffer: ArrayBuffer;
+  name: string;
+  previewUrl: string;
+};
+
+const defaultImage = () => ({
+  buffer: new ArrayBuffer(0),
+  name: "",
+  previewUrl: "",
+});
+
 const useMessenger = (replyTo?: string) => {
   const { isAuthenticated, user } = useAuthState()!;
   const { addSnackbar } = useUIDispatch();
+  const [image, setImage] = createSignal<UploadImage>(defaultImage());
   const [loading, setLoading] = createSignal(false);
   const [form, setForm] = createStore<MessengerForm>({
     content: "",
@@ -59,6 +72,8 @@ const useMessenger = (replyTo?: string) => {
     handleSubmit,
     form,
     loading,
+    image,
+    setImage,
   };
 };
 

@@ -20,7 +20,7 @@ type Props = {
 const Messenger: Component<Props> = (initialProps) => {
   const props = mergeProps({ showAvatar: true }, initialProps);
   const { user } = useAuthState()!;
-  const { handleInput, handleSubmit, form, loading } = useMessenger(props.replyTo);
+  const { handleInput, handleSubmit, form, loading, image, setImage } = useMessenger(props.replyTo);
 
   const sendDisabled = () => loading() || form.content === "";
 
@@ -43,12 +43,11 @@ const Messenger: Component<Props> = (initialProps) => {
       reader.onload = () => {
         const buffer = reader.result as ArrayBuffer;
         const buffer8Uint = new Uint8Array(buffer);
-
         const blob = new Blob([buffer8Uint], { type: file.type });
         const urlCreator = window.URL || window.webkitURL;
+        const previewUrl = urlCreator.createObjectURL(blob);
 
-        const imageUrl = urlCreator.createObjectURL(blob);
-        console.log(imageUrl);
+        setImage({ buffer, name: file.name, previewUrl });
       };
     }
   };
@@ -80,6 +79,11 @@ const Messenger: Component<Props> = (initialProps) => {
             placeholder={"What's new?"}
           />
         </div>
+        <Show when={image().previewUrl.length > 0}>
+          <div class="flex-it max-w-52 p-4">
+            <img src={image().previewUrl} />
+          </div>
+        </Show>
         <div class="flex-it mb-1 flex-row xs:justify-between items-center">
           <div class="flex-it mt-3 mr-3 cursor-pointer text-white hover:text-blue-400 transition">
             <div class="upload-btn-wrapper">
