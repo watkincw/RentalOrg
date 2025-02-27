@@ -1,4 +1,4 @@
-import { Component, createSignal, JSXElement, Setter, Show } from "solid-js";
+import { Component, createEffect, createSignal, JSXElement, Setter, Show } from "solid-js";
 import { Portal } from "solid-js/web";
 
 type ModalProps = {
@@ -14,6 +14,16 @@ const Modal: Component<Props> = (props) => {
   const [isOpen, setOpen] = createSignal(false);
 
   let modalRef: HTMLDivElement | undefined;
+
+  createEffect(() => (isOpen() ? disableScroll() : enableScroll()));
+
+  const enableScroll = () => {
+    document.body.classList.remove("no-scroll");
+  };
+
+  const disableScroll = () => {
+    document.body.classList.add("no-scroll");
+  };
 
   return (
     <>
