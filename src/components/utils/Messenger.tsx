@@ -8,7 +8,7 @@ import { useAuthState } from "../../context/auth";
 // hooks
 import useMessenger from "../../hooks/useMessenger";
 // types
-import { GliderInputEvent } from "../../types/Form";
+import { GliderFileEvent, GliderInputEvent } from "../../types/Form";
 import { Glide } from "../../types/Glide";
 
 type Props = {
@@ -31,6 +31,13 @@ const Messenger: Component<Props> = (initialProps) => {
     //set to 0, THEN set to 'auto height'
     el.style.height = "0px";
     el.style.height = scrollHeight + "px";
+  };
+
+  const handleImageSelection = (e: GliderFileEvent) => {
+    const file = e.target.files![0];
+    if (file) {
+      console.log(file);
+    }
   };
 
   return (
@@ -68,6 +75,7 @@ const Messenger: Component<Props> = (initialProps) => {
                 size={18}
               />
               <input
+                onChange={handleImageSelection}
                 type="file"
                 name="myfile"
               />
