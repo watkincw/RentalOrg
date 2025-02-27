@@ -17,6 +17,7 @@ import { Glide } from "../../types/Glide";
 
 type Props = {
   onGlideAdded: (glide?: Glide) => void;
+  selectedGlide?: Glide;
 };
 
 const MainSidebar: Component<Props> = (props) => {
@@ -70,7 +71,10 @@ const MainSidebar: Component<Props> = (props) => {
                   </div>
                 )}
               >
-                <Messenger onGlideAdded={props.onGlideAdded} />
+                <Messenger
+                  replyTo={props.selectedGlide?.lookup}
+                  onGlideAdded={props.onGlideAdded}
+                />
               </Modal>
             </div>
             {/* PROFILE MENU */}
