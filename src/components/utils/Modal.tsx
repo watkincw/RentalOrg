@@ -1,11 +1,16 @@
-import { Component, createSignal, ParentComponent, Setter, Show } from "solid-js";
+import { Component, createSignal, JSXElement, Setter, Show } from "solid-js";
 import { Portal } from "solid-js/web";
 
-type Props = {
-  openComponent: Component<{ setOpen: Setter<boolean> }>;
+type ModalProps = {
+  setOpen: Setter<boolean>;
 };
 
-const Modal: ParentComponent<Props> = (props) => {
+type Props = {
+  openComponent: Component<ModalProps>;
+  children: Component<ModalProps>;
+};
+
+const Modal: Component<Props> = (props) => {
   const [isOpen, setOpen] = createSignal(false);
 
   let modalRef: HTMLDivElement | undefined;
@@ -27,7 +32,7 @@ const Modal: ParentComponent<Props> = (props) => {
               ref={modalRef}
               class="modal fixed min-w-160 top-14 left-2/4 p-8 -translate-x-1/2 rounded-2xl"
             >
-              {props.children}
+              {props.children({ setOpen })}
             </div>
           </div>
         </Portal>
