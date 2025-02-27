@@ -11,6 +11,7 @@ import Popup from "../utils/Popup";
 import pageSize from "../../reactive/pageSize";
 // context
 import { useAuthState } from "../../context/auth";
+import Modal from "../utils/Modal";
 
 const MainSidebar: Component = () => {
   const { user } = useAuthState()!;
@@ -44,7 +45,9 @@ const MainSidebar: Component = () => {
                   </For>
                 </nav>
               </div>
-              {/* GLIDER SEND-MESSAGE BUTTON */}
+              <Modal>
+                <div class="text-white">Modal Content!</div>
+              </Modal>
               <div class="my-1 flex-it w-10/12 cursor-pointer">
                 <div class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-full flex-it transition">
                   <div class="flex-it flex-row text-xl font-bold text-white items-start justify-center truncate duration-200">
