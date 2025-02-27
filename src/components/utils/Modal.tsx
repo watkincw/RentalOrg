@@ -5,7 +5,7 @@ type ModalProps = {
   setOpen: Setter<boolean>;
 };
 
-type Props = {
+type Props = { 
   openComponent: Component<ModalProps>;
   children: Component<ModalProps>;
 };
