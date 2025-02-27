@@ -53,6 +53,7 @@ const useMessenger = (replyTo?: string) => {
 
       addSnackbar({ message: "Glide Created!", type: "success" });
       setForm({ content: "" });
+      setImage(defaultImage());
 
       return newGlide;
     } catch (error) {
