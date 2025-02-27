@@ -2,19 +2,31 @@ import { Component, createSignal, ParentComponent, Setter, Show } from "solid-js
 import { Portal } from "solid-js/web";
 
 type Props = {
-  openComponent: Component<{setOpen: Setter<boolean>}>;
+  openComponent: Component<{ setOpen: Setter<boolean> }>;
 };
 
 const Modal: ParentComponent<Props> = (props) => {
   const [isOpen, setOpen] = createSignal(false);
+
+  let modalRef: HTMLDivElement | undefined;
 
   return (
     <>
       <props.openComponent setOpen={setOpen} />
       <Show when={isOpen()}>
         <Portal>
-          <div class="openModal">
-            <div class="modal fixed min-w-160 top-14 left-2/4 p-8 -translate-x-1/2 rounded-2xl">
+          <div
+            onClick={(e) => {
+              if (modalRef && !modalRef.contains(e.target)) {
+                setOpen(false);
+              }
+            }}
+            class="openModal"
+          >
+            <div
+              ref={modalRef}
+              class="modal fixed min-w-160 top-14 left-2/4 p-8 -translate-x-1/2 rounded-2xl"
+            >
               {props.children}
             </div>
           </div>
