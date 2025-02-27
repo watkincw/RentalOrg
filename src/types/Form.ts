@@ -1,3 +1,9 @@
+export type UploadImage = {
+  buffer: ArrayBuffer;
+  name: string;
+  previewUrl: string;
+};
+
 export type GliderFileEvent = {
   target: Element & { files?: FileList };
   currentTarget: HTMLInputElement;

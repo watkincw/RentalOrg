@@ -2,18 +2,12 @@ import { createSignal } from "solid-js";
 import { createStore } from "solid-js/store";
 import { FirebaseError } from "firebase/app";
 // types
-import { GliderInputEvent, MessengerForm } from "../types/Form";
+import { GliderInputEvent, MessengerForm, UploadImage } from "../types/Form";
 // context
 import { useAuthState } from "../context/auth";
 import { useUIDispatch } from "../context/ui";
 // api
 import { createGlide, uploadImage } from "../api/glide";
-
-type UploadImage = {
-  buffer: ArrayBuffer;
-  name: string;
-  previewUrl: string;
-};
 
 const defaultImage = () => ({
   buffer: new ArrayBuffer(0),
@@ -43,15 +37,16 @@ const useMessenger = (replyTo?: string) => {
 
     setLoading(true);
 
-    const glide = {
-      ...form,
-      uid: user!.uid,
-    };
+    const glide = { ...form, uid: user!.uid };
 
     try {
       if (image().buffer.byteLength > 0) {
-        uploadImage();
+        const downloadUrl = await uploadImage(image());
+
+        console.log(downloadUrl);
       }
+
+      return;
 
       const newGlide = await createGlide(glide, replyTo);
       newGlide.user = {
