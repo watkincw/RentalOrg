@@ -33,7 +33,7 @@ const Messenger: Component<Props> = (initialProps) => {
     el.style.height = scrollHeight + "px";
   };
 
-  const handleImageSelection = (e: GliderFileEvent) => {
+  const handleImageSelection = (e: GliderFileEvent) => { 
     const file = e.target.files![0];
 
     if (file) {
