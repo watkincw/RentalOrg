@@ -24,6 +24,10 @@ import { db } from "../db";
 import { Glide, UserGlide } from "../types/Glide";
 import { User } from "../types/User";
 
+const uploadImage = () => {
+  console.log("image being uploaded");
+};
+
 const getGlideById = async (id: string, uid: string) => {
   const userDocRef = doc(db, "users", uid);
   const userGlideRef = doc(userDocRef, "glides", id);
@@ -183,4 +187,4 @@ const createGlide = async (
   return { ...glideToStore, id: added.id, lookup: added.path };
 };
 
-export { createGlide, getGlides, subscribeToGlides, getGlideById, getSubgldies };
+export { createGlide, getGlides, subscribeToGlides, getGlideById, getSubgldies, uploadImage };

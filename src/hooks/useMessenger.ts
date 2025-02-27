@@ -7,7 +7,7 @@ import { GliderInputEvent, MessengerForm } from "../types/Form";
 import { useAuthState } from "../context/auth";
 import { useUIDispatch } from "../context/ui";
 // api
-import { createGlide } from "../api/glide";
+import { createGlide, uploadImage } from "../api/glide";
 
 type UploadImage = {
   buffer: ArrayBuffer;
@@ -49,6 +49,10 @@ const useMessenger = (replyTo?: string) => {
     };
 
     try {
+      if (image().buffer.byteLength > 0) {
+        uploadImage();
+      }
+
       const newGlide = await createGlide(glide, replyTo);
       newGlide.user = {
         userName: user!.userName,
@@ -67,14 +71,7 @@ const useMessenger = (replyTo?: string) => {
     }
   };
 
-  return {
-    handleInput,
-    handleSubmit,
-    form,
-    loading,
-    image,
-    setImage,
-  };
+  return { handleInput, handleSubmit, form, loading, image, setImage };
 };
 
 export default useMessenger;
