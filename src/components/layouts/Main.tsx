@@ -2,16 +2,19 @@ import { JSXElement, ParentComponent } from "solid-js";
 // components/sidebars
 import TrendsSidebar from "../sidebars/Trends";
 import MainSidebar from "../sidebars/Main";
+// types
+import { Glide } from "../../types/Glide";
 
 type Props = {
-  pageTitle: string | JSXElement;
+  pageTitle: JSXElement;
+  onGlideAdded: (glide?: Glide) => void;
 };
 
 const MainLayout: ParentComponent<Props> = (props) => {
   return (
     <div class="w-full h-full bg-gray-900 text-gray-100">
       <div class="flex h-full min-h-252">
-        <MainSidebar />
+        <MainSidebar onGlideAdded={props.onGlideAdded} />
         <main class="flex-it flex-grow flex-shrink items-start">
           <div class="flex md:w-248 w-full h-full">
             <div class="flex-it flex-grow flex-shrink">

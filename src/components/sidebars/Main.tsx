@@ -5,15 +5,21 @@ import { RiDesignQuillPenLine } from "solid-icons/ri";
 import defaultPic from "../../assets/favicon.ico";
 // components/sidebars
 import { links } from "./links";
-// utils
+import Messenger from "../utils/Messenger";
+import Modal from "../utils/Modal";
 import Popup from "../utils/Popup";
 // reactive
 import pageSize from "../../reactive/pageSize";
 // context
 import { useAuthState } from "../../context/auth";
-import Modal from "../utils/Modal";
+// types
+import { Glide } from "../../types/Glide";
 
-const MainSidebar: Component = () => {
+type Props = {
+  onGlideAdded: (glide?: Glide) => void;
+};
+
+const MainSidebar: Component<Props> = (props) => {
   const { user } = useAuthState()!;
   return (
     <header class="lg:flex-grow flex-it items-end">
@@ -64,7 +70,7 @@ const MainSidebar: Component = () => {
                   </div>
                 )}
               >
-                <div class="text-white">Modal Content!</div>
+                <Messenger onGlideAdded={props.onGlideAdded} />
               </Modal>
             </div>
             {/* PROFILE MENU */}

@@ -20,7 +20,7 @@ const HomePage: Component = () => {
   } = useGlides();
 
   onMount(() => {
-    subscribeToGlides(); 
+    subscribeToGlides();
   });
 
   onCleanup(() => {
@@ -28,7 +28,10 @@ const HomePage: Component = () => {
   });
 
   return (
-    <MainLayout pageTitle="Home">
+    <MainLayout
+      onGlideAdded={addGlide}
+      pageTitle="Home"
+    >
       <Messenger onGlideAdded={addGlide} />
       <div class="h-px bg-gray-700 my-1" />
       <Show when={store.newGlides.length >= 3}>
