@@ -1,5 +1,5 @@
 import { useParams } from "@solidjs/router";
-import { createEffect, createResource, onMount, Show } from "solid-js";
+import { createEffect, createResource, Show } from "solid-js";
 import { FaSolidArrowLeft } from "solid-icons/fa";
 // components
 import MainLayout from "../components/layouts/Main";
