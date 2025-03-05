@@ -2,7 +2,7 @@ import { Component, For, Show } from "solid-js";
 import { A } from "@solidjs/router";
 import { FiMoreHorizontal } from "solid-icons/fi";
 import { RiDesignQuillPenLine } from "solid-icons/ri";
-import defaultPic from "../../assets/favicon.ico";
+import defaultPic from "../../assets/defaultProfilePicture.jpg";
 // components/sidebars
 import { links } from "./links";
 import Messenger from "../utils/Messenger";

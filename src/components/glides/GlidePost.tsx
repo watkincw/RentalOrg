@@ -4,7 +4,7 @@ import { FaRegularHeart } from "solid-icons/fa";
 import { FiTrash } from "solid-icons/fi";
 import { useNavigate } from "@solidjs/router";
 import moment from "moment";
-import defaultPic from "../../assets/favicon.ico";
+import defaultPic from "../../assets/defaultProfilePicture.jpg";
 // types
 import { Glide } from "../../types/Glide";
 import { User } from "../../types/User";

@@ -1,6 +1,6 @@
 import { Component, mergeProps, Show } from "solid-js";
 import { FaRegularImage } from "solid-icons/fa";
-import defaultPic from "../../assets/favicon.ico";
+import defaultPic from "../../assets/defaultProfilePicture.jpg";
 // components
 import Button from "./Button";
 // context
