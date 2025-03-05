@@ -92,7 +92,7 @@ const Messenger: Component<Props> = (initialProps) => {
                 size={18}
               />
               <input
-                onChange={handleImageSelection}
+                onChange={(e) => handleImageSelection(e as GliderFileEvent)}
                 type="file"
                 name="myfile"
                 accept="image/*"
