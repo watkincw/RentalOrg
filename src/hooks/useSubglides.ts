@@ -6,7 +6,7 @@ import { Glide, UseGlideState } from "../types/Glide";
 // api
 import * as api from "../api/glide";
 
-const defaultState = () => ({ 
+const defaultState = () => ({
   pages: {},
   lastGlideCurrentlyLoaded: null,
   loading: false,

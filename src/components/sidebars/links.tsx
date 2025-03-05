@@ -16,19 +16,19 @@ export const links = [
     href: "/profile",
     icon: () => <CgProfile size={SIZE} />,
   },
-  {
-    name: "Notification",
-    href: "/notification",
-    icon: () => <IoNotificationsCircleOutline size={SIZE} />,
-  },
-  {
-    name: "More",
-    href: "/more",
-    icon: () => <CgMoreO size={SIZE} />,
-  },
-  {
-    name: "Discover",
-    href: "/discover",
-    icon: () => <RiMapCompassDiscoverLine size={SIZE} />,
-  },
+  // {
+  //   name: "Notification",
+  //   href: "/notification",
+  //   icon: () => <IoNotificationsCircleOutline size={SIZE} />,
+  // },
+  // {
+  //   name: "More",
+  //   href: "/more",
+  //   icon: () => <CgMoreO size={SIZE} />,
+  // },
+  // {
+  //   name: "Discover",
+  //   href: "/discover",
+  //   icon: () => <RiMapCompassDiscoverLine size={SIZE} />,
+  // },
 ];

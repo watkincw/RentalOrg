@@ -14,10 +14,7 @@ import { db } from "../db";
 import { User } from "../types/User";
 
 const getUsers = async (loggedInUser: User) => {
-  const q = query(
-    collection(db, "users"),
-    where("uid", "!=", loggedInUser.uid)
-  );
+  const q = query(collection(db, "users"), where("uid", "!=", loggedInUser.uid));
   const querySnapshot = await getDocs(q);
 
   const users = querySnapshot.docs
@@ -27,8 +24,7 @@ const getUsers = async (loggedInUser: User) => {
     })
     .filter((user) => {
       const userHasFollowers =
-        loggedInUser.following.filter((following) => following.id === user.uid)
-          .length > 0;
+        loggedInUser.following.filter((following) => following.id === user.uid).length > 0;
 
       return !userHasFollowers;
     });

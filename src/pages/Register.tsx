@@ -31,7 +31,7 @@ const RegisterPage: Component = () => {
 
   return (
     <div class="flex-it justify-center items-center h-full">
-      <div class="text-white text-4xl font-bold">Glider - Create Account</div>
+      <div class="text-white text-4xl font-bold">RentalOrg - Create Account</div>
       <div class="mt-10 flex-it xs:w-100 bg-white p-10 rounded-2xl">
         <div class="flex-it">
           <form class="flex-it">
@@ -52,7 +52,7 @@ const RegisterPage: Component = () => {
                   </div>
 
                   <div class="flex-it py-2">
-                    <label class="block text-sm font-medium text-gray-700">User Name</label>
+                    <label class="block text-sm font-medium text-gray-700">Username</label>
                     <input
                       onInput={handleInput}
                       use:validate={[
@@ -81,7 +81,7 @@ const RegisterPage: Component = () => {
                     <FormError>{errors["email"]}</FormError>
                   </div>
 
-                  <div class="flex-it py-2">
+                  {/* <div class="flex-it py-2">
                     <label class="block text-sm font-medium text-gray-700">
                       Profile Picture (optional)
                     </label>
@@ -92,7 +92,7 @@ const RegisterPage: Component = () => {
                       id="avatar"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
-                  </div>
+                  </div> */}
 
                   <div class="flex-it py-2">
                     <label class="block text-sm font-medium text-gray-700">Password</label>

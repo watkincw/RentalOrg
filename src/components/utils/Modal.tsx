@@ -1,11 +1,11 @@
-import { Component, createEffect, createSignal, JSXElement, Setter, Show } from "solid-js";
+import { Component, createEffect, createSignal, Setter, Show } from "solid-js";
 import { Portal } from "solid-js/web";
 
 type ModalProps = {
   setOpen: Setter<boolean>;
 };
 
-type Props = { 
+type Props = {
   openComponent: Component<ModalProps>;
   children: Component<ModalProps>;
 };

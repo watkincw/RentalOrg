@@ -1,5 +1,4 @@
 import { Component } from "solid-js";
-import { FaBrandsGlideG } from "solid-icons/fa";
 import { CenteredDataLoader } from "./DataLoader";
 
 type Props = {

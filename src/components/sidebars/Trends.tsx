@@ -38,6 +38,7 @@ const TrendsSidebar: Component = () => {
     <div class="bg-gray-800 overflow-hidden flex-it rounded-2xl">
       <div class="flex-it p-4">
         <span class="text-xl font-bold">Trends</span>
+        <span class="text-xl font-bold">(This panel does nothing)</span>
       </div>
       <For each={trends}>
         {(trend) => (
