@@ -67,14 +67,6 @@ const GlideDetailPage = () => {
         fallback={<CenteredDataLoader />}
       >
         <GlidePost glide={data()!} />
-        <div class="p-4 border-b-1 border-solid border-grey-700">
-          <div class="text-sm italis text-gray-300 mb-2 ml-4">Replying to {user().userName}</div>
-          <Messenger
-            replyTo={data()?.lookup}
-            showAvatar={false}
-            onGlideAdded={onGlideAdded}
-          />
-        </div>
         <PaginatedGlides
           page={page}
           pages={store.pages}
@@ -84,6 +76,18 @@ const GlideDetailPage = () => {
             return loadGlides(lookup);
           }}
         />
+
+        <div class="min-h-screen flex flex-col">
+          <div class="flex-1">{/* <!-- Your main content goes here --> */}</div>
+          <div class="sticky bottom-0 p-4 border-1 border-solid border-grey-700 bg-blue-900">
+            <div class="text-sm italic text-gray-300 mb-2 ml-4">Replying to {user().userName}</div>
+            <Messenger
+              replyTo={data()?.lookup}
+              showAvatar={false}
+              onGlideAdded={onGlideAdded}
+            />
+          </div>
+        </div>
       </Show>
     </MainLayout>
   );

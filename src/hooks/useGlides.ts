@@ -96,7 +96,7 @@ const useGlides = () => {
         if (!store.pages[page]) {
           store.pages[page] = { glides: [] };
         }
-
+        
         store.pages[page].glides.unshift({ ...glide });
       })
     );

@@ -49,7 +49,6 @@ const PaginatedGlides: Component<Props> = (props) => {
         </div>
       </Show>
       <div ref={lastItemRef!}></div>
-      <div class="h-96"></div>
     </>
   );
 };

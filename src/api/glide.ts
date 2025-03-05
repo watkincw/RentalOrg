@@ -60,7 +60,9 @@ const getGlides = async (
   lastGlideCurrentlyLoaded: QueryDocumentSnapshot | null
 ) => {
   const _loggedInUsersGlides = doc(db, "users", loggedInUser.uid);
-  const constraints: QueryConstraint[] = [orderBy("date", "desc"), limit(10)];
+  
+  const constraints: QueryConstraint[] = [orderBy("date", "desc")];
+  // const constraints: QueryConstraint[] = [orderBy("date", "desc"), limit(10)];
 
   // only display glides of users you follow, and your own
   if (loggedInUser.following.length > 0) {
@@ -99,7 +101,8 @@ const getSubgldies = async (
   const _collection = collection(ref, "glides");
 
   // if user is replying to a glide, orderBy("date", "asc")
-  const constraints: QueryConstraint[] = [orderBy("date", "desc"), limit(10)];
+  const constraints: QueryConstraint[] = [orderBy("date", "asc")];
+  // const constraints: QueryConstraint[] = [orderBy("date", "desc"), limit(10)];
 
   if (!!lastGlideCurrentlyLoaded) {
     constraints.push(startAfter(lastGlideCurrentlyLoaded));
@@ -111,15 +114,13 @@ const getSubgldies = async (
   const _lastGlideCurrentlyLoaded = qSnapshot.docs[qSnapshot.docs.length - 1];
 
   const glides = await Promise.all(
-    qSnapshot.docs
-      .map(async (doc) => {
-        const glide = doc.data() as Glide;
-        const userSnap = await getDoc(glide.user as DocumentReference);
-        glide.user = userSnap.data() as User;
+    qSnapshot.docs.map(async (doc) => {
+      const glide = doc.data() as Glide;
+      const userSnap = await getDoc(glide.user as DocumentReference);
+      glide.user = userSnap.data() as User;
 
-        return { ...glide, id: doc.id, lookup: doc.ref.path };
-      })
-      .reverse()
+      return { ...glide, id: doc.id, lookup: doc.ref.path };
+    })
   );
 
   return {

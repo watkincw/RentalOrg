@@ -18,7 +18,7 @@ const GlidePost: Component<Props> = (props) => {
   const glide = () => props.glide;
   const user = () => glide().user as User;
 
-  const hasUrl = () => !!glide().mediaUrl
+  const hasUrl = () => !!glide().mediaUrl;
 
   return (
     <div class="flex-it p-4 border-b-1 border-solid border-gray-700">
@@ -42,7 +42,9 @@ const GlidePost: Component<Props> = (props) => {
               <div>
                 <span class="font-bold">{user().userName}</span>
                 <span class="mx-2">&#8226;</span>
-                <span class="text-gray-400">{moment(glide().date.toDate().toISOString()).fromNow()}</span>
+                <span class="text-gray-400">
+                  {moment(glide().date.toDate().toISOString()).fromNow()}
+                </span>
               </div>
               <div class="text-gray-400 cursor-pointer transition hover:text-red-400">
                 <FiTrash size={16} />
