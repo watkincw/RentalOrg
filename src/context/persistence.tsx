@@ -33,14 +33,19 @@ const PersistenceProvider: ParentComponent = (props) => {
   const revalidate = async <T extends Map>(
     key: string,
     getData: () => Promise<T>,
-    originalData: T
+    persistedData: T
   ) => {
     const fetchedData = await getData();
 
-    const isEqual = Object.keys(originalData).every((objectProperty) => {
-      return _.isEqual(fetchedData[objectProperty], originalData[objectProperty]);
+    const isEqual = Object.keys(persistedData).every((objectProperty) => {
+      return _.isEqual(fetchedData[objectProperty], persistedData[objectProperty]);
     });
-    console.log(isEqual);
+
+    if (!isEqual) {
+      setValue(key, fetchedData);
+    }
+
+    return fetchedData;
   };
 
   const useRevalidate = async <T extends Map>(key: string, getData: () => Promise<T>) => {
