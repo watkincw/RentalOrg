@@ -60,7 +60,7 @@ const getGlides = async (
   lastGlideCurrentlyLoaded: QueryDocumentSnapshot | null
 ) => {
   const _loggedInUsersGlides = doc(db, "users", loggedInUser.uid);
-  
+
   const constraints: QueryConstraint[] = [orderBy("date", "desc")];
   // const constraints: QueryConstraint[] = [orderBy("date", "desc"), limit(10)];
 
@@ -147,7 +147,7 @@ const subscribeToGlides = (loggedInUser: User, getCallback: (g: Glide[]) => void
         const userSnap = await getDoc(glide.user as DocumentReference);
         glide.user = userSnap.data() as User;
 
-        return { ...glide, id: doc.id };
+        return { ...glide, id: doc.id, lookup: doc.ref.path };
       })
     );
 

@@ -21,6 +21,11 @@ const PersistenceProvider: ParentComponent = (props) => {
   const [store, setStore] = createStore<PersistenceStore>();
 
   const setValue = (key: string, value: any) => {
+    const PERSISTENCE_LIMIT = 100;
+    if (Object.keys(store).length > PERSISTENCE_LIMIT) {
+      clearStore();
+    }
+
     setStore(
       produce((store) => {
         store[key] = value;
@@ -30,6 +35,16 @@ const PersistenceProvider: ParentComponent = (props) => {
 
   const getValue = <T,>(key: string) => {
     return store[key] as T;
+  };
+
+  const clearStore = () => {
+    setStore(
+      produce((store) => {
+        Object.keys(store).forEach((key) => {
+          delete store[key];
+        });
+      })
+    );
   };
 
   const hasValue = (key: string) => !!store[key];
@@ -69,6 +84,7 @@ const PersistenceProvider: ParentComponent = (props) => {
     }
 
     const result = await getData();
+    setValue(key, result);
     return result;
   };
 
