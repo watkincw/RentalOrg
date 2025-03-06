@@ -27,9 +27,8 @@ const GlideDetailPage = () => {
   };
 
   const [data, { mutate, refetch }] = createResource(async () => {
-    const glide = await persistence.useRevalidate(
-      `selectedGlide-${params.id}`,
-      () => getGlideById(params.id, params.uid)
+    const glide = await persistence.useRevalidate(`selectedGlide-${params.id}`, () =>
+      getGlideById(params.id, params.uid)
     );
 
     onGlideLoaded(glide);
@@ -74,15 +73,19 @@ const GlideDetailPage = () => {
         fallback={<CenteredDataLoader />}
       >
         <GlidePost glide={data()!} />
-        <PaginatedGlides
-          page={page}
-          pages={store.pages}
-          loading={store.loading}
-          loadMoreGlides={() => {
-            const lookup = data()?.lookup!;
-            return loadGlides(lookup);
-          }}
-        />
+        <div class="pl-10">
+          <div class="border-l-1 border-gray-700">
+            <PaginatedGlides
+              page={page}
+              pages={store.pages}
+              loading={store.loading}
+              loadMoreGlides={() => {
+                const lookup = data()?.lookup!;
+                return loadGlides(lookup);
+              }}
+            />
+          </div>
+        </div>
 
         <div class="min-h-screen flex flex-col">
           <div class="flex-1">{/* <!-- Your main content goes here --> */}</div>
