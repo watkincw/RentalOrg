@@ -50,11 +50,10 @@ const GlideDetailPage = () => {
 
   const onGlideAdded = (newGlide?: Glide) => {
     const glide = data()!;
+    const glideWithNewCount = { ...glide, subglidesCount: glide.subglidesCount + 1 };
 
-    mutate({
-      ...glide,
-      subglidesCount: glide.subglidesCount + 1,
-    });
+    mutate(glideWithNewCount);
+    persistence.setValue(`selectedGlide-${params.id}`, glideWithNewCount);
 
     addSubglide(newGlide);
   };
