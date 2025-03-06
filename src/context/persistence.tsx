@@ -8,7 +8,11 @@ type PersistenceStore = { [key: string]: any };
 type PersistenceContextType = {
   getValue: <T>(key: string) => T;
   setValue: (key: string, value: any) => void;
-  useRevalidate: <T extends Map>(key: string, getData: () => Promise<T>) => Promise<T>;
+  useRevalidate: <T extends Map>(
+    key: string,
+    getData: () => Promise<T>,
+    callback?: (fetchedData: T) => void
+  ) => Promise<T>;
 };
 
 const PersistenceContext = createContext<PersistenceContextType>();
@@ -33,7 +37,8 @@ const PersistenceProvider: ParentComponent = (props) => {
   const revalidate = async <T extends Map>(
     key: string,
     getData: () => Promise<T>,
-    persistedData: T
+    persistedData: T,
+    callback?: (fetchedData: T) => void
   ) => {
     const fetchedData = await getData();
 
@@ -43,15 +48,23 @@ const PersistenceProvider: ParentComponent = (props) => {
 
     if (!isEqual) {
       setValue(key, fetchedData);
+
+      if (!!callback) {
+        callback(fetchedData);
+      }
     }
 
     return fetchedData;
   };
 
-  const useRevalidate = async <T extends Map>(key: string, getData: () => Promise<T>) => {
+  const useRevalidate = async <T extends Map>(
+    key: string,
+    getData: () => Promise<T>,
+    callback?: (latestData: T) => void
+  ) => {
     if (hasValue(key)) {
       const value = getValue<T>(key);
-      revalidate(key, getData, value);
+      revalidate(key, getData, value, callback);
       return value;
     }
 
