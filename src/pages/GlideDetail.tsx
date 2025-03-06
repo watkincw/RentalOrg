@@ -1,5 +1,5 @@
 import { useParams } from "@solidjs/router";
-import { createEffect, createResource, onMount, Show } from "solid-js";
+import { createEffect, createResource, Show } from "solid-js";
 import { FaSolidArrowLeft } from "solid-icons/fa";
 // components
 import MainLayout from "../components/layouts/Main";
@@ -27,6 +27,10 @@ const GlideDetailPage = () => {
   };
 
   const [data, { mutate, refetch }] = createResource(async () => {
+    const selectedGlide = persistence.getValue<Glide>(`selectedGlide-${params.id}`);
+
+    console.log(selectedGlide);
+
     const glide = await getGlideById(params.id, params.uid);
     onGlideLoaded(glide);
     return glide;
@@ -34,16 +38,6 @@ const GlideDetailPage = () => {
 
   const { store, page, loadGlides, addSubglide, resetPagination } = useSubglides();
   const user = () => data()?.user as User;
-
-  onMount(() => {
-    const value1 = persistence.getValue<number>("number-value");
-    const value2 = persistence.getValue<string>("string-value");
-    const value3 = persistence.getValue<{name: string, age: number}>("object-value");
-
-    console.log(value1);
-    console.log(value2);
-    console.log(value3);
-  });
 
   createEffect(() => {
     if (!data.loading && data()?.id !== params.id) {

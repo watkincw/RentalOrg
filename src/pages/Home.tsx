@@ -21,15 +21,7 @@ const HomePage: Component = () => {
     displayNewGlides,
   } = useGlides();
 
-  const persistence = usePersistence()!;
-
   onMount(() => {
-    console.log("storing values");
-
-    persistence.setValue("number-value", 1000);
-    persistence.setValue("string-value", "Colton");
-    persistence.setValue("object-value", { name: "Colton", age: 29 });
-
     subscribeToGlides();
   });
 
