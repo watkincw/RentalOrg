@@ -7,6 +7,8 @@ import Button from "../components/utils/Button";
 import PaginatedGlides from "../components/glides/PaginatedGlides";
 // hooks
 import useGlides from "../hooks/useGlides";
+// context
+import { usePersistence } from "../context/persistence";
 
 const HomePage: Component = () => {
   const {
@@ -19,7 +21,13 @@ const HomePage: Component = () => {
     displayNewGlides,
   } = useGlides();
 
+  const persistence = usePersistence()!;
+
   onMount(() => {
+    persistence.setValue("number-value", 1000);
+    persistence.setValue("string-value", "Colton");
+    persistence.setValue("object-value", { name: "Colton", age: 29 });
+
     subscribeToGlides();
   });
 

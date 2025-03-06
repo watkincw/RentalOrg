@@ -1,5 +1,5 @@
 import { useParams } from "@solidjs/router";
-import { createEffect, createResource, Show } from "solid-js";
+import { createEffect, createResource, onMount, Show } from "solid-js";
 import { FaSolidArrowLeft } from "solid-icons/fa";
 // components
 import MainLayout from "../components/layouts/Main";
@@ -14,9 +14,12 @@ import { User } from "../types/User";
 import { Glide } from "../types/Glide";
 // hooks
 import useSubglides from "../hooks/useSubglides";
+// context
+import { usePersistence } from "../context/persistence";
 
 const GlideDetailPage = () => {
   const params = useParams();
+  const persistence = usePersistence()!;
 
   const onGlideLoaded = (glide: Glide) => {
     resetPagination();
@@ -31,6 +34,16 @@ const GlideDetailPage = () => {
 
   const { store, page, loadGlides, addSubglide, resetPagination } = useSubglides();
   const user = () => data()?.user as User;
+
+  onMount(() => {
+    const value1 = persistence.getValue("number-value");
+    const value2 = persistence.getValue("string-value");
+    const value3 = persistence.getValue("object-value");
+
+    console.log(value1);
+    console.log(value2);
+    console.log(value3);
+  });
 
   createEffect(() => {
     if (!data.loading && data()?.id !== params.id) {
