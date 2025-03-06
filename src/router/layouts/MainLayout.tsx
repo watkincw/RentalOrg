@@ -2,7 +2,7 @@ import { useNavigate } from "@solidjs/router";
 import { Component, ParentProps, onMount } from "solid-js";
 // context
 import { useAuthState } from "../../context/auth";
-// import PersistenceProvider from "../../context/persistence";
+import PersistenceProvider from "../../context/persistence";
 
 const MainLayout: Component<ParentProps> = (props) => {
   const authState = useAuthState()!;
@@ -20,9 +20,7 @@ const MainLayout: Component<ParentProps> = (props) => {
 
   return (
     <>
-      {/* <PersistenceProvider> */}
-      {props.children}
-      {/* </PersistenceProvider> */}
+      <PersistenceProvider>{props.children}</PersistenceProvider>
     </>
   );
 };
