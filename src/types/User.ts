@@ -10,4 +10,6 @@ export interface User {
   followersCount: number;
   following: DocumentReference[];
   followingCount: number;
+  isLandlord: boolean;
+  isRenter: boolean;
 }
