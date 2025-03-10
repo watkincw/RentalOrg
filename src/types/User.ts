@@ -7,7 +7,7 @@ export interface User {
   email: string;
   avatar: string;
   followers: DocumentReference[];
-  following: DocumentReference[];
   followersCount: number;
+  following: DocumentReference[];
   followingCount: number;
 }
