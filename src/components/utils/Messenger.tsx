@@ -8,7 +8,7 @@ import { useAuthState } from "../../context/auth";
 // hooks
 import useMessenger from "../../hooks/useMessenger";
 // types
-import { GliderFileEvent, GliderInputEvent } from "../../types/Form";
+import { GliderFileEvent, RentalOrgInputEvent } from "../../types/Form";
 import { Glide } from "../../types/Glide";
 
 type Props = {
@@ -24,7 +24,7 @@ const Messenger: Component<Props> = (initialProps) => {
 
   const sendDisabled = () => loading() || form.content === "";
 
-  const autoSize = (e: GliderInputEvent) => {
+  const autoSize = (e: RentalOrgInputEvent) => {
     const el = e.currentTarget;
     const { scrollHeight } = el;
 

@@ -2,7 +2,7 @@ import { createSignal } from "solid-js";
 import { createStore } from "solid-js/store";
 import { FirebaseError } from "firebase/app";
 // types
-import { GliderInputEvent, MessengerForm, UploadImage } from "../types/Form";
+import { RentalOrgInputEvent, MessengerForm, UploadImage } from "../types/Form";
 // context
 import { useAuthState } from "../context/auth";
 import { useUIDispatch } from "../context/ui";
@@ -24,7 +24,7 @@ const useMessenger = (replyTo?: string) => {
     content: "",
   });
 
-  const handleInput = (e: GliderInputEvent) => {
+  const handleInput = (e: RentalOrgInputEvent) => {
     const { name, value } = e.currentTarget;
     setForm(name, value);
   };

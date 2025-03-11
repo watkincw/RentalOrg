@@ -25,6 +25,8 @@ const register = async (form: RegisterForm) => {
     following: [],
     followersCount: 0,
     followingCount: 0,
+    isLandlord: form.isLandlord,
+    isRenter: form.isRenter,
   };
 
   await setDoc(doc(db, "users", registeredUser.uid), user);

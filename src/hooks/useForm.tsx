@@ -1,7 +1,7 @@
 import { Accessor, For, ParentComponent, Show } from "solid-js";
 import { createStore, produce } from "solid-js/store";
 // types
-import { Form, FormErrors, GliderInputEvent, SubmitCallback } from "../types/Form";
+import { Form, FormErrors, RentalOrgInputEvent, SubmitCallback } from "../types/Form";
 
 declare module "solid-js" {
   namespace JSX {
@@ -98,11 +98,18 @@ const useForm = <T extends Form>(initialForm: T) => {
     });
   };
 
-  const handleInput = (e: GliderInputEvent) => {
-    const { name, value } = e.currentTarget;
+  const handleInput = (e: RentalOrgInputEvent) => {
+    const target = e.currentTarget;
 
-    // name - "fullname", "nickName", "email", ...
-    setForm(name as any, value as any);
+    let inputValue: any;
+
+    if (target instanceof HTMLInputElement && target.type === "checkbox") {
+      inputValue = target.checked;
+    } else {
+      inputValue = target.value;
+    }
+
+    setForm(target.name as any, inputValue as any);
   };
 
   const submitForm = (submitCallback: SubmitCallback<T>) => () => {

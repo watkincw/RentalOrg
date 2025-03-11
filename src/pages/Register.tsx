@@ -23,10 +23,18 @@ const RegisterPage: Component = () => {
     avatar: "",
     password: "",
     passwordConfirmation: "",
+    isLandlord: false, // Use strings per type definition above, convert back onFormSubmit
+    isRenter: false,
   });
 
   const onFormSubmit = (form: RegisterForm) => {
-    authUser(form);
+    const userData = {
+      ...form,
+      isLandlord: form.isLandlord,
+      isRenter: form.isRenter,
+    };
+
+    authUser(userData);
   };
 
   return (
@@ -121,6 +129,30 @@ const RegisterPage: Component = () => {
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                     <FormError>{errors["passwordConfirmation"]}</FormError>
+                  </div>
+
+                  <div class="flex-it py-2">
+                    <label class="text-sm font-medium text-gray-700">I am a:</label>
+                    <div>
+                      <input
+                        onInput={handleInput}
+                        type="checkbox"
+                        name="isLandlord"
+                        id="isLandlordCheckbox"
+                        class="mt-1 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      />
+                      <span class="p-1">Landlord</span>
+                    </div>
+                    <div>
+                      <input
+                        onInput={handleInput}
+                        type="checkbox"
+                        name="isRenter"
+                        id="isRenterCheckbox"
+                        class="mt-1 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      />
+                      <span class="p-1">Renter</span>
+                    </div>
                   </div>
                 </div>
               </div>
