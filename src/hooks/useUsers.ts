@@ -77,6 +77,7 @@ const useUsers = () => {
     users,
     followUser,
     loadingFollow,
+    user,
   };
 };
 
